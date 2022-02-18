@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title%>
+    </title>
+    <link rel="shorcut icon" type="image/x-icon" href="../images/fevion.png">
+    <script src="https://kit.fontawesome.com/22406f9d4d.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.staticaly.com/gh/hung1001/font-awesome-pro/4cac1a6/css/all.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="./css/home.css"> 
+</head>
+<body>
+    <div id = "container">
+
+        <div id = "image-container">
+            <img src="./images/home.webp" height="100%" width="100%">
+        </div>
+
+        <div id = "form-container">
+            <div id="form-heading">
+                <div id="Web-logo">
+                    <i class="fad fa-moon-cloud fa-4x" id="cloud-connect-logo"></i>
+                    <p id="cloud-connect-name">Cloud Connect...</p>
+                </div>
+
+                <div id="Web-name-message">
+                    <p id="name">
+                        Cloud Connect
+                    </p>
+                    <p id="message">
+                        "A Social Media Website for Geeks who never settle for less."
+                    </p>
+                </div>
+            </div>
+
+            <div>
+                <%- body %>
+            </div>
+
+            <div id="copy-right">
+                <i class="fas fa-copyright fa-2x"></i> <span>CloudConnect</span>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
