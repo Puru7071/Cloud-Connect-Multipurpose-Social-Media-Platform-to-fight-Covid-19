@@ -1,5 +1,5 @@
 body {
-    background-color: #ffffff ; 
+    background-color: #95c4fc ; 
 }
 .txt-center{
     text-align: center;
@@ -15,67 +15,70 @@ body {
 }
 #image-container{
     height: 100%;
-    width: 55%;
+    width: 45%;
+    border-radius: 200px;
+    overflow: hidden;
 }
 #form-container{
     background-color: #FED99B;
-    height: 90%;
-    width: 45%;
+    height: auto;
+    width: 40%;
     border: 1px solid #adb5bd; 
-    box-shadow: 0px 0px 50px 0px #adb5bd;
+    box-shadow: 0px 0px 10px 0px #adb5bd;
     border-radius: 30px;
     display: flex;
     flex-direction: column;
     position: relative;
+    top: 30px;
 }
 #form-heading{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    top: 5px;
     padding: 10px;
     display: flex;
-    height: 25% ; 
+    height: 100px ;  
     width: 100%;
     box-sizing: border-box;
 }
 #Web-logo{
-    width: 27%;
+    width: 20%;
 }
 #cloud-connect-logo{
-    color: #8900f2;
+    color: #371a45;
 }
 #cloud-connect-name{
     position: relative;
     top: -20px;
     font-family: Papyrus;
     font-weight: 900;
+    font-size: 0.6rem;
 }
-#Web-name-message{
-    width: 73%;
-}
-#name{
-    color: #161a1d;
-    text-align: center;
-    font-family: monospace ;
-    font-weight: 900;
-    font-size: 2.2rem;
-    position: relative;
-    top: -30px; left: -10px;
-}
-#message{
-    text-align: center;
-    color: #0c090d;
-    position: relative;
-    font-weight: 900;
+#Web-message{
+    display: flex ; 
+    align-items: center;
     font-family: monospace;
-    top: -60px; ;
+    width: 80%;
+    font-size: 1rem;
+    font-weight: 900;
+    color: #371a45;
 }
+
 .welcome-heading{
     font-family: monospace;
     font-weight: 900;
     color: white;
+    position: relative;
+    top: 100px;
 }
-#sign-in{
-    margin-top: 40px ;
+#who-are-u{
+    margin-top: 100px ;
+    position: relative;
+    top: 50px;
+    margin-bottom: 100px;
 }
-#sign-in a{
+#who-are-u a{
     text-decoration: none;
     font-family: monospace;
     font-size: 1.2rem;
@@ -84,19 +87,20 @@ body {
 }
 #sign-in-heading {
     position: relative;
-    top: -60px;
-    font-size: 3rem;
+    top: 60px;
+    font-size: 2.2rem;
     font-family: monospace;
     font-weight: 900;
     color: white;
 }
-#sign-in-form , #sign-up-form{
+#sign-in-form {
+    position: relative;
+    top: 20px;
     position: relative;
     width: 100%;
-    top: -100px; 
 }
 
-#sign-in-form input , #bar-1 div input{
+#sign-in-form input {
     position: relative;
     left: 20px; top: 5px;
     outline: none;
@@ -112,26 +116,26 @@ body {
 }
 
 
-#sign-in-form label , #bar-1 div label{
+#sign-in-form label {
     position: relative;
     left: 20px;
     font-family: monospace;
     font-weight: 900;
     color: #0c090d;
 }
-#sign-in-form label font , #bar-1 div label font{
+#sign-in-form label font {
     font-size: 1.09rem;
 }
-#sign-in-form input:focus , #bar-1 div input:focus{
+#sign-in-form input:focus {
     background-color: #ff6d00;
     border-radius: 10px;
     color: white;
 }
 
-#sign-in-form input::-webkit-input-placeholder , #bar-1 div input::-webkit-input-placeholder {
+#sign-in-form input::-webkit-input-placeholder {
     color:white;
 }
-#btn-log-up , #btn-log-in{
+#btn-log-in{
     background-color: #fef9ef;
     color: #0a9396;
     font-family: monospace;
@@ -143,7 +147,9 @@ body {
     height: 50px ;
     cursor: pointer;
     position: relative;
-    left: 50px;
+    margin-bottom: 60px;
+    margin-right: 30px;
+    margin-left: 20px;
 }
 #btn-log-in:hover {
     background-color: #f0ead2;
@@ -151,32 +157,22 @@ body {
 #sign-in-question{
     text-decoration: none;
     font-family: monospace;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 900;
     position: relative;
     color: #065a60;
-    left: 100px;
+    text-align: center;
 }
 
 #sign-up-heading{
-    font-size: 3rem;
+    font-size: 2.2rem;
     font-family: monospace;
     font-weight: 900;
     color: white;
     position: relative;
-    top: -60px;
+    top: -50px;
 }
-#bar-1{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-#bar-1 div {
-    width: 100%;
-}
-#bar-1 div input{
-    width: 80%;
-}
+
 
 #copy-right{
     color: #0096c7;
