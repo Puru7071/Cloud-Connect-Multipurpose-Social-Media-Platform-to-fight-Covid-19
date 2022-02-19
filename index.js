@@ -3,6 +3,8 @@ const expressLayouts = require("express-ejs-layouts") ;
 const path = require("path") ;
 const port = 7777 ; 
 
+const db = require("./config/mongoose") ; 
+
 const app = express() ; 
 
 
@@ -15,8 +17,6 @@ app.use(expressLayouts)
 app.use(express.static("assets")) ; 
 app.use(express.urlencoded()) ; 
 app.use("/" , require("./routes/homePageRouter")) ; 
-
-
 
 app.listen(port , function(error){
     if(error){

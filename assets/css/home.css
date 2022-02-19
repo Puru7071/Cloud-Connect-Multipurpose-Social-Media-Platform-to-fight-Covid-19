@@ -1,5 +1,5 @@
 body {
-    background-color: #95c4fc ; 
+    background-color: hsl(213, 94%, 79%) ;     
 }
 .txt-center{
     text-align: center;
@@ -14,9 +14,9 @@ body {
 
 }
 #image-container{
-    height: 100%;
+    height: 80%;
     width: 45%;
-    border-radius: 200px;
+    border-radius: 600px;
     overflow: hidden;
 }
 #form-container{
