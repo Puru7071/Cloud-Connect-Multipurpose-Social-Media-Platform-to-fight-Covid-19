@@ -15,18 +15,18 @@ module.exports.createNewUser = function(request , response){
             return response.redirect("back") ; 
         }
         if(!user){
-            users.create(request.body , function(error , newUser){
+            users.create({
+                email : request.body.email , 
+                name : request.body.name , 
+                password : request.body.password
+            } , function(error , newUser){
                 if(error){
                     console.error(`Error in creating new User: ${error}`) ; 
                     return response.redirect("back") ; 
                 }
                 console.log(`New User Created Succesfully : ${newUser}`) ; 
-                var data = {
-                    layout : "layout1.ejs" , 
-                    title : "Cloud Connect | Sign-in" 
-                }
-                return response.redirect("sign-in", data) ; 
+                return response.redirect("/sign-in") ; 
             }); 
         }
     }) ; 
-}
+}  
