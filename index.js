@@ -1,5 +1,6 @@
 const express = require("express") ; 
 const expressLayouts = require("express-ejs-layouts") ; 
+const cookieparser = require("cookie-parser") ;
 const path = require("path") ;
 const port = 7777 ; 
 
@@ -16,6 +17,7 @@ app.set("layout extractStyles" , true) ;
 app.use(expressLayouts)
 app.use(express.static("assets")) ; 
 app.use(express.urlencoded()) ; 
+app.use(cookieparser()) ; 
 app.use("/" , require("./routes/homePageRouter")) ; 
 
 app.listen(port , function(error){

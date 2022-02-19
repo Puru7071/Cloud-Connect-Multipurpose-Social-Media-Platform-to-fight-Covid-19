@@ -1,7 +1,7 @@
 const users = require("../models/userInfoSchema") ; 
 
 module.exports.createNewUser = function(request , response){
-    if(request.body.password != request.body.Cpassword){
+    if(request.body.password != request.body.CPassword){
         console.error("Password entered not same.") ; 
         return response.redirect("back") ; 
     }
@@ -15,18 +15,63 @@ module.exports.createNewUser = function(request , response){
             return response.redirect("back") ; 
         }
         if(!user){
-            users.create(request.body , function(error , newUser){
+            users.create({
+                email : request.body.email , 
+                name : request.body.name , 
+                password : request.body.password
+            } , function(error , newUser){
                 if(error){
                     console.error(`Error in creating new User: ${error}`) ; 
                     return response.redirect("back") ; 
                 }
                 console.log(`New User Created Succesfully : ${newUser}`) ; 
-                var data = {
-                    layout : "layout1.ejs" , 
-                    title : "Cloud Connect | Sign-in" 
-                }
-                return response.redirect("sign-in", data) ; 
+                return response.redirect("/sign-in") ; 
             }); 
         }
     }) ; 
+}  
+
+
+
+module.exports.createSessionForValidUser = function(request , response){
+    users.findOne({email : request.body.email} , function(error , user){
+        if(error){
+            console.error(`Something went wrong: ${error}`) ; 
+            return response.redirect("back") ; 
+        }
+        if(user){
+            if(request.body.password == user.password){
+                response.cookie("user_id" , user.id) ; 
+                return response.redirect("/users/profile") ; 
+            }
+            console.error("Password or Email entered is incorrect.") ; 
+            return response.redirect("back") ; 
+        }
+        else{
+            console.error(`No Such user found Please Create Account`) ; 
+            return response.redirect("/sign-up") ; 
+        }
+    }) ; 
 }
+
+module.exports.showProfile = function(request , response){
+    if(request.cookies.user_id ){
+        users.findById(request.cookies.user_id , function(error , user){
+            console.log("Entered") ; 
+            if(error){
+                console.error(`Something went wrong: ${error}`) ; 
+                return response.redirect("/sign-in") ; 
+            }
+            var data = {
+                layout : "userProfile.ejs" , 
+                title : "User's Profile | Cloud Connect" 
+            }
+            return response.render("userProfile" , data) ; 
+        }); 
+    }
+    else{
+        console.log(`Unauthorized Access!`) ; 
+        return response.redirect("/sign-in") ;
+    } 
+}
+
