@@ -1,7 +1,7 @@
 const users = require("../models/userInfoSchema") ; 
 
 module.exports.createNewUser = function(request , response){
-    if(request.body.password != request.body.Cpassword){
+    if(request.body.password != request.body.CPassword){
         console.error("Password entered not same.") ; 
         return response.redirect("back") ; 
     }
