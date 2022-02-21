@@ -172,7 +172,16 @@ body {
     position: relative;
     top: -50px;
 }
-
+.reduce-wdith-for-see-password{
+    width: 75% !important;
+}
+.show-password-button{
+    cursor: pointer;
+    color: #ff6d00;
+    margin-left: 40px;
+    position: relative;
+    top: 15px;
+}
 
 #copy-right{
     color: #0096c7;
