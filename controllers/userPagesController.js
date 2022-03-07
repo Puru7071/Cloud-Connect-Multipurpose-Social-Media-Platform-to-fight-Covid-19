@@ -57,11 +57,11 @@ module.exports.createSessionForValidUser = function(request , response){
 module.exports.showProfile = function(request , response){
     if(request.cookies.user_id ){
         users.findById(request.cookies.user_id , function(error , user){
-            console.log("Entered") ; 
             if(error){
                 console.error(`Something went wrong: ${error}`) ; 
                 return response.redirect("/sign-in") ; 
             }
+            console.log(`Authorized Access!!`) ; 
             var data = {
                 layout : "userProfile.ejs" , 
                 title : "User's Profile | Cloud Connect" 
