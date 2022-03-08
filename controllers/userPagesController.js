@@ -55,23 +55,14 @@ module.exports.createSessionForValidUser = function(request , response){
 }
 
 module.exports.showProfile = function(request , response){
-    if(request.cookies.user_id ){
-        users.findById(request.cookies.user_id , function(error , user){
-            if(error){
-                console.error(`Something went wrong: ${error}`) ; 
-                return response.redirect("/sign-in") ; 
-            }
-            console.log(`Authorized Access!!`) ; 
-            var data = {
+    var data = {
                 layout : "userProfile.ejs" , 
                 title : "User's Profile | Cloud Connect" 
             }
-            return response.render("userProfile" , data) ; 
-        }); 
-    }
-    else{
-        console.log(`Unauthorized Access!`) ; 
-        return response.redirect("/sign-in") ;
-    } 
+    return response.render("userProfile" , data) ; 
+}
+
+module.exports.createSessionForValidUserMainMethod = function(request , response){
+    return response.redirect("/users/profile") ; 
 }
 

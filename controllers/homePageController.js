@@ -1,6 +1,10 @@
 const { render } = require("express/lib/response");
+const passport = require("passport") ; 
 
 module.exports.renderSigninPage = function(request , response){
+    if(request.isAuthenticated()){
+        return response.redirect("/users/profile") ; 
+    }
     console.log("Sign-In Page Rendered") ; 
     var data = {
         layout : "layout1.ejs" , 
@@ -11,6 +15,9 @@ module.exports.renderSigninPage = function(request , response){
 
 
 module.exports.renderSignUpPage = function(request , response){
+    if(request.isAuthenticated()){
+        return response.redirect("/users/profile") ; 
+    }
     console.log("Sign-Up Page Rendered") ; 
     var data = {
         layout : "layout1.ejs" , 
