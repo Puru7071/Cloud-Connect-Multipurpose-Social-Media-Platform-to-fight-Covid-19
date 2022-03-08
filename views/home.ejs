@@ -1,15 +1,47 @@
-<div class="txt-center welcome-heading">
-    <h1>
-        Welcome to world's most emerging Social Media Platform.
-    </h1>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title%>
+    </title>
+    <link rel="shorcut icon" type="image/x-icon" href="../images/fevion.png">
+    <script src="https://kit.fontawesome.com/22406f9d4d.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.staticaly.com/gh/hung1001/font-awesome-pro/4cac1a6/css/all.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="./css/home.css"> 
+</head>
+<body>
+    <div id = "container">
 
-<div id="who-are-u" class="txt-center">
-    <a href="/sign-in">
-        Are you a existing user? 
-    </a>
-    <br> <br>
-    <a href="/sign-up">
-        Create a new account.
-    </a>
-</div>
+        <div id = "image-container">
+            <img src="./images/home.png" height="100%" width="100%">
+        </div>
+
+        <div id = "form-container">
+            <div id="form-heading">
+                <div id="Web-logo">
+                    <i class="fad fa-moon-cloud fa-4x" id="cloud-connect-logo"></i>
+                    <p id="cloud-connect-name">Cloud Connect.</p>
+                </div>
+
+                <div id="Web-message" class="txt-center">
+                        "A Social Media website for geeks like you who never settle for less".
+                    
+                </div>
+            </div>
+
+            <div>
+                <%- body %>
+            </div>
+
+            <div id="copy-right">
+                <i class="fas fa-copyright fa-2x"></i> <span>CloudConnect</span>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="js/entryJS.js"></script>
+</body>
+</html>
