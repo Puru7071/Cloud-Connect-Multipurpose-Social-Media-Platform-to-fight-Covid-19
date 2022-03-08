@@ -1,3 +1,4 @@
+
 body {
     background-color: hsl(213, 94%, 79%) ;     
 }
@@ -172,7 +173,16 @@ body {
     position: relative;
     top: -50px;
 }
-
+.reduce-wdith-for-see-password{
+    width: 75% !important;
+}
+.show-password-button{
+    cursor: pointer;
+    color: #46494c;
+    margin-left: 40px;
+    position: relative;
+    top: 15px;
+}
 
 #copy-right{
     color: #0096c7;
