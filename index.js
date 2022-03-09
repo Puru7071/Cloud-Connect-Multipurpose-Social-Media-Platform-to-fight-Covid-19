@@ -12,28 +12,20 @@ const path = require("path") ;
 const port = 7777 ; 
 
 const db = require("./config/mongoose") ; 
-// const Mongostore = require("connect-mongo")(session); 
+const Mongostore = require("connect-mongo"); 
 
-const app = express() ;
-
-app.use(express.urlencoded()) ; 
-app.use(cookieparser()) ; 
-
-app.use(expressLayouts)
-app.set("layout extractScripts" , true) ; 
-app.set("layout extractStyles" , true) ;
+const app = express() ; 
+ 
 
 app.set("view engine" , "ejs") ; 
 app.set("views" , path.join(__dirname , "views")) ; 
+app.set("layout extractScripts" , true) ; 
+app.set("layout extractStyles" , true) ; 
 
-
-// app.use(express.static("assets")) ; 
-
-
-
-
-
-
+app.use(expressLayouts)
+app.use(express.static("assets")) ; 
+app.use(express.urlencoded()) ; 
+app.use(cookieparser()) ; 
 
 app.use(session({
     name : "CloudConnect" , 
@@ -43,21 +35,17 @@ app.use(session({
     cookie : {
         maxAge : (1000 * 120 * 60 ) 
     },
-    // store: new Mongostore({
-    //     mongooseConnection : db , 
-    //     autoRemove : "disabled"
-    // })
+    store: Mongostore.create({
+                 mongoUrl: 'mongodb://localhost/SocialMediaDatabase',
+                 autoRemove:'disabled'
+        })
 })) ; 
 app.use(passport.initialize()) ; 
 app.use(passport.session()) ; 
 
 app.use(passport.setAuthenticatedUser) ; 
 
-app.use(express.static(path.join(__dirname , 'assets')))  ; 
-
 app.use("/" , require("./routes/homePageRouter")) ; 
-
-
 
 app.listen(port , function(error){
     if(error){
@@ -67,3 +55,4 @@ app.listen(port , function(error){
     console.log(`Server is up and running on port no: ${port}`) ; 
     return ; 
 }) ;
+

@@ -33,26 +33,26 @@ module.exports.createNewUser = function(request , response){
 
 
 
-module.exports.createSessionForValidUser = function(request , response){
-    users.findOne({email : request.body.email} , function(error , user){
-        if(error){
-            console.error(`Something went wrong: ${error}`) ; 
-            return response.redirect("back") ; 
-        }
-        if(user){
-            if(request.body.password == user.password){
-                response.cookie("user_id" , user.id) ; 
-                return response.redirect("/users/profile") ; 
-            }
-            console.error("Password or Email entered is incorrect.") ; 
-            return response.redirect("back") ; 
-        }
-        else{
-            console.error(`No Such user found Please Create Account`) ; 
-            return response.redirect("/sign-up") ; 
-        }
-    }) ; 
-}
+// module.exports.createSessionForValidUser = function(request , response){
+//     users.findOne({email : request.body.email} , function(error , user){
+//         if(error){
+//             console.error(`Something went wrong: ${error}`) ; 
+//             return response.redirect("back") ; 
+//         }
+//         if(user){
+//             if(request.body.password == user.password){
+//                 response.cookie("user_id" , user.id) ; 
+//                 return response.redirect("/users/profile") ; 
+//             }
+//             console.error("Password or Email entered is incorrect.") ; 
+//             return response.redirect("back") ; 
+//         }
+//         else{
+//             console.error(`No Such user found Please Create Account`) ; 
+//             return response.redirect("/sign-up") ; 
+//         }
+//     }) ; 
+// }
 
 module.exports.showProfile = function(request , response){
     var data = {
