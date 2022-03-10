@@ -1,18 +1,14 @@
 const express = require("express") ; 
 const expressLayouts = require("express-ejs-layouts") ; 
-const cookieparser = require("cookie-parser") ;
-
-
-const passport = require("passport") ; 
-const session = require("express-session") ; 
-const passportLocal = require("./config/passport-local-stategy") ; 
-
-
+const cookieParser = require("cookie-parser") ; 
 const path = require("path") ;
 const port = 7777 ; 
-
+const session = require("express-session") ; 
+const passport = require("passport") ; 
+const passportLocal = require("./config/passport-local-stategy")  ; 
 const db = require("./config/mongoose") ; 
-const Mongostore = require("connect-mongo"); 
+const Mongostore = require("connect-mongo");
+
 
 const app = express() ; 
  
@@ -23,9 +19,9 @@ app.set("layout extractScripts" , true) ;
 app.set("layout extractStyles" , true) ; 
 
 app.use(expressLayouts)
+app.use(cookieParser()) ; 
 app.use(express.static("assets")) ; 
 app.use(express.urlencoded()) ; 
-app.use(cookieparser()) ; 
 
 app.use(session({
     name : "CloudConnect" , 
