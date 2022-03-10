@@ -6,12 +6,12 @@ const port = 7777 ;
 const session = require("express-session") ; 
 const passport = require("passport") ; 
 const passportLocal = require("./config/passport-local-stategy")  ; 
-const db = require("./config/mongoose") ; 
-const Mongostore = require("connect-mongo");
+
 
 
 const app = express() ; 
- 
+const db = require("./config/mongoose") ; 
+const Mongostore = require("connect-mongo");
 
 app.set("view engine" , "ejs") ; 
 app.set("views" , path.join(__dirname , "views")) ; 
