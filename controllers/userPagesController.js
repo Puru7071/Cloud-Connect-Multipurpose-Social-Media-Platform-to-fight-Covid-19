@@ -42,4 +42,8 @@ module.exports.showProfile = function(request , response){
 module.exports.createSessionForValidUserMainMethod = function(request , response){
     return response.redirect("/users/profile") ; 
 }
+module.exports.destroySession = function(request , resposne){
+    request.logout() ; 
+    return resposne.redirect("/") ; 
+}
 

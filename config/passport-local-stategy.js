@@ -44,7 +44,7 @@ passport.checkAuthentication = function(request , response , next){
     if(request.isAuthenticated()){
         return next() ;
     }
-    return response.redirect('/users/sign-in') ; 
+    return response.redirect('/sign-in') ; 
 }
 passport.setAuthenticatedUser = function(request, response, next){
     if (request.isAuthenticated()){
