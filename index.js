@@ -6,12 +6,21 @@ const port = 7777 ;
 const session = require("express-session") ; 
 const passport = require("passport") ; 
 const passportLocal = require("./config/passport-local-stategy")  ; 
+const sassMiddleware = require("node-sass-middleware") ; 
 
-
+ 
 
 const app = express() ; 
 const db = require("./config/mongoose") ; 
 const Mongostore = require("connect-mongo");
+
+app.use(sassMiddleware({
+    src: "./assets/scss" , 
+    dest: "./assets/css" , 
+    debug : true , 
+    outputStyle : "extended" , 
+    prefix : "/css"
+})) ;
 
 app.set("view engine" , "ejs") ; 
 app.set("views" , path.join(__dirname , "views")) ; 
