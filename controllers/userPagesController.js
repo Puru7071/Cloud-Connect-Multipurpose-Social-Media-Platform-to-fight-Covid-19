@@ -1,4 +1,6 @@
 const users = require("../models/userInfoSchema") ; 
+const post = require("../models/postSchema") ; 
+const comments = require("../models/commentSchema") ; 
 
 module.exports.createNewUser = function(request , response){
     if(request.body.password != request.body.CPassword){
@@ -32,12 +34,26 @@ module.exports.createNewUser = function(request , response){
 }  
 
 module.exports.showProfile = function(request , response){
-    var data = {
-                layout : "userProfile.ejs" , 
-                title : "User's Profile | Cloud Connect" 
-            }
-    return response.render("userProfile" , data) ; 
+    post.find({user : request.user._id})
+    .populate("user")
+    .populate({
+        path: "comments" , 
+        populate: {
+            path: "user"
+        }
+    }).exec(function(error , posts){
+        if(error){
+            console.error(`Error in showing the post--> ${error}`) ; 
+            return response.redirect("back") ; 
+        }
+        console.log(posts) ; 
+        return response.render("userProfile" , {
+            layout : "userProfile.ejs" ,
+            posts : posts
+        }) ; 
+    }) ;
 }
+       
 
 module.exports.createSessionForValidUserMainMethod = function(request , response){
     return response.redirect("/users/profile") ; 
@@ -46,4 +62,3 @@ module.exports.destroySession = function(request , resposne){
     request.logout() ; 
     return resposne.redirect("/") ; 
 }
-

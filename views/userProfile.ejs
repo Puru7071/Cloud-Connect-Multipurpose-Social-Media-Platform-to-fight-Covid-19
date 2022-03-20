@@ -5,33 +5,169 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <%= title%>
+        <%= user.name%> | CloudConnect
     </title>
     <link rel="shorcut icon" type="image/x-icon" href="../images/fevion.png">
     <script src="https://kit.fontawesome.com/22406f9d4d.js" crossorigin="anonymous"></script>
     <link href="https://cdn.staticaly.com/gh/hung1001/font-awesome-pro/4cac1a6/css/all.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="./css/home.css"> 
+    <link rel="stylesheet" type="text/css" href="/css/user.css"> 
 </head>
 <body>
-    <h1>
-        User Profile Rendered!
-    </h1>
-    <h1>
-        <%= user.email%>
-    </h1>
-    <h1>
-        <%= user.name%>
-    </h1>
-    
-    <a href="/users/sign-out" >
-
-        <div class="sign-out-button">
-            <i class="fas fa-sign-out"></i> Sign-Out 
+    <div class="header-for-user-profile">
+        <a id="Web-logo" href="users/home">
+            <i class="fad fa-moon-cloud fa-4x" id="cloud-connect-logo" aria-hidden="true"></i>
+            <p id="cloud-connect-name">Cloud Connect.</p>
+        </a>
+        <p>
+            <a href="users/home">
+                CloudConnect
+            </a>
+        </p>
+        <div>
+            <a href="/users/sign-out" >
+                <button class="sign-out-button">
+                    <i class="fas fa-sign-out"></i> &nbsp; Sign-Out 
+                </button>
+            </a>
+            <a href="/users/home" >
+                <button class="goto-home-button">
+                    <i class="fas fa-home"></i>&nbsp; Home 
+                </button>
+            </a>
         </div>
+    </div>
 
-    </a>
+    <div class="profile-constainer">
+        <div class="profile-photo">
+            <img src="/images/shivKesh.jpeg" height="100%" width="100%">
+        </div> 
+    
+        <div class="personal-info-container">
+            <p class="user-name">
+                <i class="fas fa-user-alt"></i>&nbsp; <%= user.name%>
+            </p>
+            <p class="user-email">
+                <i class="fas fa-envelope"></i>&emsp; <%= user.email%> 
+            </p>
 
+            <div class="about-yourself-container">
+                Lorem Ipsum is simply dummy text of the printing and 
+                typesetting industry. Lorem Ipsum has been the industry's 
+                standard dummy text ever since the 1500s, when an unknown 
+                printer took a galley of type and scrambled it to make a 
+                type specimen book. It has survived not only five centuries, 
+                but also the leap into electronic typesetting, remaining 
+                essentially unchanged. It was popularised in the 1960s with 
+                the release of Letraset sheets containing Lorem Ipsum passages, 
+                and more recently with desktop publishing software like Aldus 
+                PageMaker including versions of Lorem Ipsum.
+            </div>
+
+            <button type="button" class="create-post-button">
+                <i class="fas fa-sort-down fa-2x" style="position: relative; top: -5px;"></i>&nbsp; Create Post
+            </button>
+            <button type="button" class="add-about-yourself">
+                <i class="fas fa-edit " style="position: relative;"></i>&nbsp; Bio
     
+            </button>
+        </div>
+    </div>
+
+    <form class="create-post-form" method="POST" action="/posts/create-post">
+        <label for="title">Give Title of Post <i class="fas fa-level-down"></i></label>
+        <br>
+        <input required id="title" name="title" placeholder="Add Title" maxlength="40">
+        <br><br>
+        <label for="postDescription">Describe Post <i class="fas fa-level-down"></i></label>
+        <br>
+        <textarea required id="postDescription" name="postDescription" placeholder="Describe post."></textarea>
+        <br><br>
+        <button type="submit" class="create-post-button remove-pos">
+            <i class="fas fa-plus " ></i>&nbsp; Create Post
+        </button>
+    </form>
     
+    <form class="add-about-yourself-form">
+        <label for="title">Tell others about yourself <i class="fas fa-level-down"></i></label>
+        <br>
+        <textarea maxlength="2000" name="aboutUser"></textarea>
+
+        <button type="submit" class="add-about-yourself remove-pos">
+            <i class="fas fa-edit " style="position: relative;"></i>&nbsp; Save
+            
+        </button>
+    </form>
+    <div class="move-up-whole">
+        <div class="users-post-heading">
+            Your Posts...
+        </div>
+        <% for(let post of posts){%>
+            <div class="post-card">
+                <div class="post-image">
+                    <img src="/images/dummy.webp" height="100%" width="100%">
+                </div>
+                <div class="post-info-part">
+                    <div class="post-heading">
+                        <%= post.title%>
+                    </div>
+                    <div class="post-description">
+                        <%= post.postDescription%>
+                    </div>
+                </div>
+                <div class="post-buttons">
+                    <div>
+                        <i class="far fa-thumbs-up fa-2x"></i>
+                        <font>69M</font>
+                    </div>
+                    <div>
+                        <i class="far fa-thumbs-down fa-2x"></i>
+                        <font>69</font>
+                    </div>
+                    <div class="view-comment-section">
+                        <i class="far fa-comment-alt fa-2x"></i>
+                        <font><%= post.comments.length%></font>
+                    </div>
+    
+                    <a class="delete-button" href="/posts/delete-post/<%= post._id %>" >
+                        <i class="fas fa-trash-alt fa-2x"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <form method="POST" action="/posts/create-comments" class="comment-box">
+                    <label for="comment"><i class="fas fa-2x fa-comment-alt"></i></label>
+                    <input placeholder="Type here to Comment" type="text" maxlength="200" name="comment" id="comment">
+                    <input type="hidden" value="<%= post._id%>" name="postID">
+                    <button class="comment-button"><i class="fas fa-pencil"></i> &nbsp;Comment</button>
+                </form>
+            </div>
+            <div class="comment-section" data-isVisible = "false">
+                <h1>
+                    Comments.
+                </h1>
+                <% for(let comment of post.comments){%>
+                    <div class="comment-card" >
+                        <div class="comment-creater">
+                            <i class="fas fa-user-circle"></i> <%= comment.user.name%>
+                        </div><br>
+                        <div class="comment">
+                           <%= comment.content%>
+                        </div>
+                        <div class="comment-date">
+                            <%= comment.user.createdAt%>
+                        </div>
+                    </div>
+                <%}%>
+                <%if(post.comments.length == 0){%>
+                    <h2>
+                        No Comments Available.
+                    </h2>
+                <%}%>
+            </div>
+        <%}%>
+    </div>
+    
+    <script type="text/javascript" src="/js/userJS.js"></script>
+       
 </body>
 </html>

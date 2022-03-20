@@ -7,5 +7,6 @@ router.get("/sign-in" , homeController.renderSigninPage) ;
 router.get("/sign-up", homeController.renderSignUpPage ) ;
 
 router.use("/users" , require("./userPagesRouter")) ; 
+router.use("/posts" , require("./postRouter")) ; 
 
 module.exports = router ; 
