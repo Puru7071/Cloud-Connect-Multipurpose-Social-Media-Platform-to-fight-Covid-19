@@ -5,6 +5,22 @@ body{
 a{
     text-decoration: none;
 }
+html::-webkit-scrollbar{
+	width: 1vw;
+}
+html::-webkit-scrollbar-thumb{
+    background:#666666;
+	border-radius: 50vw;
+}
+html::-webkit-scrollbar-button{
+    display: none;
+}
+html::-webkit-scrollbar-corner{
+    background:  #b3b3b3;
+}
+html::-webkit-scrollbar-track{
+    background:  #b3b3b3;
+}
 .header-for-user-profile{
     z-index: 20;
     height: 80px ; 
@@ -19,8 +35,9 @@ a{
         a{
             color: white;
             text-decoration: none;
-            font-family: cursive;
+            font-weight: 900;
             font-size: 2rem;
+            font-family: monospace;
         }
     }
 }
@@ -83,7 +100,7 @@ a{
     background-color: #1b4965;
     border-radius: 20px;
     position: relative;
-    left: 10px; top: 10px;
+    left: 10px; top: 100px;
 }
 .personal-info-container{
     margin: 2vw;
@@ -163,7 +180,7 @@ a{
     border-radius: 20px;
     label{
         margin-left: 4px;
-        color: #003049;
+        color: black;
         font-family: monospace;
         font-size: 1.02rem;
         i{
@@ -223,7 +240,7 @@ a{
 }
 .users-post-heading{
     position: relative;
-    top: 10px;
+    top: 120px;
     font-family: monospace;
     font-weight: 900;
     font-size: 3rem;
@@ -262,7 +279,7 @@ a{
     font-weight: 900;
     text-align: center;
     width: 100%; margin: auto;
-    background-color: #00b4d8;
+    background-color: #4ea8de;
     color: white;
 }
 .post-description{
@@ -276,6 +293,22 @@ a{
     text-align: justify;
     font-size: 1.1rem;
     overflow-y: scroll;
+    &::-webkit-scrollbar{
+        width: 1vw;
+    }
+    &::-webkit-scrollbar-thumb{
+        background:#666666;
+        border-radius: 50vw;
+    }
+    &::-webkit-scrollbar-button{
+        display: none;
+    }
+    &::-webkit-scrollbar-corner{
+        background:  #b3b3b3;
+    }
+    &::-webkit-scrollbar-track{
+        background:  #b3b3b3;
+    }
 }
 .post-buttons{
     width: 100%;
@@ -395,4 +428,21 @@ a{
     font-family: monospace;
     position: relative;
     left: 50%;
+}
+.show-post-comment-buttons{
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    top: 120px;
+    font-family: monospace;
+    font-weight: 900;
+    font-size: 3rem;
+    color: white;
+    background-color: #003049;
+    border-radius: 20px;
+    width: 86vw; margin: auto;
+    div{
+        cursor: pointer;
+    }
+
 }

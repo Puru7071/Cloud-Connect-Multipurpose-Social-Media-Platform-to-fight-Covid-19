@@ -2,6 +2,7 @@ const users = require("../models/userInfoSchema") ;
 const post = require("../models/postSchema") ; 
 const comments = require("../models/commentSchema") ; 
 const { populate } = require("../models/userInfoSchema");
+const res = require("express/lib/response");
 
 module.exports.createNewUser = function(request , response){
     if(request.body.password != request.body.CPassword){
@@ -21,7 +22,8 @@ module.exports.createNewUser = function(request , response){
             users.create({
                 email : request.body.email , 
                 name : request.body.name , 
-                password : request.body.password
+                password : request.body.password , 
+                personlInfo : request.body.Bio
             } , function(error , newUser){
                 if(error){
                     console.error(`Error in creating new User: ${error}`) ; 
@@ -48,11 +50,19 @@ module.exports.showProfile = function(request , response){
             return response.redirect("back") ; 
         }
         console.log(posts) ; 
-        return response.render("userProfile" , {
-            layout : "userProfile.ejs" ,
-            posts : posts , 
-            isHome : false
-        }) ; 
+        posts.reverse() ; 
+        users.findById(request.params.id , function(error , user){
+            if(error){
+                console.error(`Something went wrong: ${error}`) ; 
+                return response.redirect("back") ; 
+            }
+            return response.render("userProfile" , {
+                layout : "userProfile.ejs" ,
+                posts : posts , 
+                isHome : false ,
+                targetUser : user
+            }) ; 
+        })
     }) ;
 }
   
@@ -71,11 +81,23 @@ module.exports.showHomePage = function(request , response){
             return response.redirect("/") ; 
         }
         console.log(posts) ; 
+        posts.reverse() ; 
         return response.render("userHomePage.ejs" , {
             layout : "userHomePage.ejs" , 
             posts : posts ,
             isHome : true 
         })
+    }); 
+}
+
+module.exports.addBio = function(request , response){
+    users.findByIdAndUpdate(request.params.id , {personlInfo : request.body.Bio} , function(error , user){
+        if(error){
+            console.error(`Something went wrong: ${error}`) ; 
+            return response.redirect("back") ; 
+        }
+        console.log(`Bio updated successfully: ${user}`) ; 
+        return response.redirect("back");  
     }); 
 }
 

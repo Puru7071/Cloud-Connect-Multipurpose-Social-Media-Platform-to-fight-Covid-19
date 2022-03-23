@@ -13,7 +13,10 @@ const userSchema = mongoose.Schema({
     name : {
         type: String , 
         required : true 
-    } 
+    } , 
+    personlInfo :{
+        type: String 
+    }
 } , {
     timestamps : true 
 }) ; 
