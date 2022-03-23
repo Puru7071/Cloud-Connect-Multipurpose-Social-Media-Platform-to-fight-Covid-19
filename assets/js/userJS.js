@@ -88,3 +88,18 @@ for(let i = 0 ; i < commentSection.length ; i += 1){
         }
     }) ;
 }
+
+ 
+
+document.getElementsByClassName("show-comment-button")[0].addEventListener("click" , function(event){
+    event.stopPropagation() ; 
+    document.getElementsByClassName("move-up-whole")[0].style.display = "none" ; 
+    document.getElementsByClassName("comment-main-card")[0].style.display = "block"
+    document.getElementsByClassName("comment-main-card")[0].style.top = "120px"
+}); 
+
+document.getElementsByClassName("show-post-button")[0].addEventListener("click" , function(event){
+    event.stopPropagation() ; 
+    document.getElementsByClassName("comment-main-card")[0].style.display = "none" ; 
+    document.getElementsByClassName("move-up-whole")[0].style.display = "block" ; 
+}) ; 

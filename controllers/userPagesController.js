@@ -56,12 +56,17 @@ module.exports.showProfile = function(request , response){
                 console.error(`Something went wrong: ${error}`) ; 
                 return response.redirect("back") ; 
             }
-            return response.render("userProfile" , {
-                layout : "userProfile.ejs" ,
-                posts : posts , 
-                isHome : false ,
-                targetUser : user
-            }) ; 
+            comments.find({user: request.params.id})
+            .populate("user")
+            .exec(function(error , allComments){
+                return response.render("userProfile" , {
+                    layout : "userProfile.ejs" ,
+                    posts : posts , 
+                    isHome : false ,
+                    targetUser : user , 
+                    allComments : allComments 
+                }) ;
+            }) ;  
         })
     }) ;
 }

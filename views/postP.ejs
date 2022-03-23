@@ -1,5 +1,6 @@
-<div class="move-up-whole">
-        
+<div class="comment-post-slider">
+    
+    <div class="move-up-whole">
         <%if(posts.length == 0 ){%>
             <p style="color: whitesmoke; font-family: monospace; font-weight: 900; color: red; font-size: 2rem;">
                 No post Availbale.
@@ -90,3 +91,32 @@
             </div>
         <%}%>
     </div>
+
+
+    <div class="comment-main-card">
+        <% for(let comment of allComments){%>
+            <div class="comment-card" >
+                <div class="comment-creater">
+                    <i class="fas fa-user-circle"></i> <%= comment.user.name%>
+                </div><br>
+                <div class="comment">
+                   <%= comment.content%>
+                </div>
+                <div class="comment-main-date">
+                    <%= comment.user.createdAt%>
+                </div>
+                <% if(locals.user && locals.user.id == comment.user.id){%>
+                    <a class="delete-button-comments" href="/posts/delete-comment/<%= comment._id %>" >
+                        <i class="fas fa-trash-alt "></i>
+                    </a>
+                <%}%>
+            </div>
+            
+        <%}%>
+        <%if(allComments.length == 0){%>
+            <h2>
+                No Comments Available.
+            </h2>
+        <%}%>
+    </div>
+</div>
