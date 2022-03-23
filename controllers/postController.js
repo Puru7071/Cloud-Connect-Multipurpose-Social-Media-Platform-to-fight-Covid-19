@@ -1,5 +1,8 @@
 const posts = require("../models/postSchema") ; 
 const comments = require("../models/commentSchema") ; 
+const req = require("express/lib/request");
+const { response } = require("express");
+const { post } = require("../routes/postRouter");
 
 module.exports.createPost = function(request , response){
     posts.create({
@@ -17,14 +20,29 @@ module.exports.createPost = function(request , response){
 }
 
 module.exports.deletePost = function(request , response){
-    posts.findByIdAndDelete(request.params.id , function(error){
-        if(error){
-            console.erro(`Error in deleting the post--> ${error}`) ; 
-            return response.redirect("back") ; 
-        }
-        console.log("Task Deleted Successfully") ; 
-        return response.redirect("back") ; 
-    }) ;
+   posts.findById(request.params.id  , function(error , post){
+       if(error){
+           console.error(`Something went wrong--> ${error}`) ; 
+           return response.redirect("back") ; 
+       }
+       //This is way to convert the object type into string request.user.id
+       if(request.user.id == post.user){
+           post.remove() ; 
+
+           comments.deleteMany({post : request.params.id} , function(error){
+               if(error){
+                   console.error(`Something went wrong--> ${error}`) ;
+                   return response.redirect("back") ;
+               }
+               console.log(`Sucessfully Deletion of Post Done.`) ; 
+               return response.redirect("back") ; 
+           }); 
+       }
+       else{
+           console.log(`Unauthorized Access`) ; 
+           return response.redirect("/sign-in") ; 
+       }
+   }); 
 }
 
 module.exports.createComment = function(request , response){
@@ -50,4 +68,25 @@ module.exports.createComment = function(request , response){
             }) ; 
         }
     }) ; 
+}
+
+module.exports.deleteComment = function(request , response){
+    comments.findById(request.params.id , function(error , comment){
+        if(error){
+            console.error(`Something went wrong: ${error}`) ;
+            return response.redirect("back") ; 
+        }
+        if(comment.user == request.user.id){
+            let postId = comment.post ; 
+            comment.remove() ; 
+
+            posts.findByIdAndUpdate(postId , {$pull: {comments : request.params.id} } , function(error ,post){
+                if(error){
+                    console.error(`Something went wrong: ${error}`) ; 
+                    return response.redirect("back") ; 
+                }
+                return response.redirect("back") ; 
+            }) ;
+        }
+    }) ;
 }

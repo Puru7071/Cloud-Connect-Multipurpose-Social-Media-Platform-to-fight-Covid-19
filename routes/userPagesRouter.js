@@ -6,7 +6,9 @@ const passport = require('passport');
 
 const userController = require("../controllers/userPagesController") ; 
 
-router.get("/profile" ,passport.checkAuthentication, userController.showProfile) ;
+router.get("/profile/:id" ,passport.checkAuthentication, userController.showProfile) ;
+
+router.get("/home-page" , passport.checkAuthentication , userController.showHomePage) ; 
 
 router.post("/sign-up" , userController.createNewUser) ; 
 

@@ -28,6 +28,9 @@ module.exports.renderSignUpPage = function(request , response){
 
 
 module.exports.renderHomePage = function(request , response){
+    if(request.isAuthenticated()){
+        return response.redirect("/users/profile") ; 
+    }
     console.log("Home Page Rendered") ; 
     var data = {
         layout : 'layout1.ejs' , 

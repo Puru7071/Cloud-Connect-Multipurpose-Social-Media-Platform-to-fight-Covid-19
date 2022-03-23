@@ -1,12 +1,12 @@
 body{
     background-color: #6c757d;
     margin: 0px;
-    padding-bottom: 20px;
 }
 a{
     text-decoration: none;
 }
 .header-for-user-profile{
+    z-index: 20;
     height: 80px ; 
     width: 100vw;
     background-color: #00b4d8;
@@ -14,7 +14,7 @@ a{
     justify-content: space-around;
     align-items: center;
     align-items: center;
-    position: relative;
+    position: fixed ; 
     p{
         a{
             color: white;
@@ -219,10 +219,11 @@ a{
 }
 .move-up-whole{
     position: relative;
-    top: 20px; left: 10px;
+    top: 120px; left: 10px;
 }
 .users-post-heading{
     position: relative;
+    top: 10px;
     font-family: monospace;
     font-weight: 900;
     font-size: 3rem;
@@ -278,6 +279,7 @@ a{
 }
 .post-buttons{
     width: 100%;
+    overflow: hidden;
     position: absolute;
     bottom: 0px; 
     display: flex;
@@ -295,11 +297,16 @@ a{
         font-size: 2rem;
     }
 }
-.delete-button{
+.delete-button , .delete-button-comments{
     color: white;
     &:hover{
         color: red;
     }
+}
+.delete-button-comments{
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }
 .comment-box{
     background-color: #003049;
