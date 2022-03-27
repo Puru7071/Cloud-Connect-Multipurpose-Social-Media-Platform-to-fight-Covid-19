@@ -16,8 +16,8 @@ if(document.getElementsByClassName("create-post-form")[0].getAttribute("data-isA
         if(!isPostButtonClicked){
             document.getElementsByClassName("create-post-form")[0].style.display = "block" ;
             document.getElementsByClassName("create-post-form")[0].style.position = "relative" ; 
-            document.getElementsByClassName("create-post-form")[0].style.top = "-300px"
-            document.getElementsByClassName("profile-constainer")[0].style.height = "800px"
+            document.getElementsByClassName("create-post-form")[0].style.top = "-400px"
+            document.getElementsByClassName("profile-constainer")[0].style.height = "900px"
             document.getElementsByClassName("fas fa-sort-down fa-2x")[0].setAttribute("class","fas fa-sort-up fa-2x") ; 
             document.getElementsByClassName("fas fa-sort-up fa-2x")[0].style.position = "relative" ; 
             document.getElementsByClassName("fas fa-sort-up fa-2x")[0].style.top = "6px" ; 
@@ -51,8 +51,8 @@ if(document.getElementsByClassName("create-post-form")[0].getAttribute("data-isA
         if(!isBioButtonClicked){
             document.getElementsByClassName("add-about-yourself-form")[0].style.display = "block" ;
             document.getElementsByClassName("add-about-yourself-form")[0].style.position = "relative" ; 
-            document.getElementsByClassName("add-about-yourself-form")[0].style.top = "-200px"
-            document.getElementsByClassName("profile-constainer")[0].style.height = "700px"
+            document.getElementsByClassName("add-about-yourself-form")[0].style.top = "-300px"
+            document.getElementsByClassName("profile-constainer")[0].style.height = "800px"
             document.getElementsByClassName("show-post-comment-buttons")[0].style.top = "-120px"
             document.getElementsByClassName("move-up-whole")[0].style.top = "-100px" ; 
             isBioButtonClicked = true ; 

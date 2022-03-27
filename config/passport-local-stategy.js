@@ -5,18 +5,19 @@ const LocalStrategy = require("passport-local") ;
 const Users = require("../models/userInfoSchema") ; 
 
 passport.use(new LocalStrategy({
-    usernameField : "email" 
+    usernameField : "email" , 
+    passReqToCallback: true
 } , 
 
-    function(email , password , done){
+    function(req, email , password , done){
         Users.findOne({email : email} , function(error , user){
             if(error){
-                console.log(`Error in finding the user ${error}`) ; 
+                req.flash("error","Something went wrong.") ; 
                 return done(error) ; 
             }
 
             if(!user || user.password != password){
-                console.error(`Error ---> password entered not correct`) ; 
+                req.flash("error","No such user found.") ; 
                 return done(null , false) ; 
             }
 
@@ -33,7 +34,6 @@ passport.serializeUser(function(user , done){
 passport.deserializeUser(function(id , done){
     Users.findById(id , function(error ,user){
         if(error){
-            console.error(`Error occured:${error}`) ; 
             return done(error) ; 
         }
         return done(null , user) ; 
@@ -45,11 +45,13 @@ passport.checkAuthentication = function(request , response , next){
         console.log("Users is Authenticated") ; 
         return next() ;
     }
+    
     return response.redirect('/sign-in') ; 
 }
 passport.setAuthenticatedUser = function(request, response, next){
     if (request.isAuthenticated()){
         response.locals.user = request.user;
     }
+    
     next();
 }

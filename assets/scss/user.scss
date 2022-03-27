@@ -168,7 +168,7 @@ html::-webkit-scrollbar-track{
     top: 0px; left: 0px;
 }
 .create-post-form , .add-about-yourself-form{
-    background-color: #219ebc;
+    background-color: #f08080;
     width: 80vw; 
     padding: 20px;
     margin-left: 130px;
@@ -428,6 +428,7 @@ html::-webkit-scrollbar-track{
     font-family: monospace;
     position: relative;
     left: 50%;
+    margin-top: 10px;
 }
 .show-post-comment-buttons{
     display: flex;

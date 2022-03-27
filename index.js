@@ -7,12 +7,14 @@ const session = require("express-session") ;
 const passport = require("passport") ; 
 const passportLocal = require("./config/passport-local-stategy")  ; 
 const sassMiddleware = require("node-sass-middleware") ; 
-
+const flash = require("connect-flash") ; 
+const myMware = require("./config/middleware") ; 
  
 
 const app = express() ; 
 const db = require("./config/mongoose") ; 
 const Mongostore = require("connect-mongo");
+const exp = require("constants");
 
 app.use(sassMiddleware({
     src: "./assets/scss" , 
@@ -50,6 +52,10 @@ app.use(passport.session()) ;
 
 app.use(passport.setAuthenticatedUser) ; 
 
+app.use(flash()) ; 
+app.use(myMware.setFlash) ; 
+
+app.use("/uploads" , express.static(__dirname + "/uploads"))
 app.use("/" , require("./routes/homePageRouter")) ; 
 
 app.listen(port , function(error){
