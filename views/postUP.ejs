@@ -2,7 +2,7 @@
     
     <div class="move-up-whole">
         <%if(posts.length == 0 ){%>
-            <p style="color: whitesmoke; font-family: monospace; font-weight: 900; color: red; font-size: 2rem;">
+            <p style="font-family: monospace; font-weight: 900; color: red; font-size: 2rem;">
                 No post Availbale.
             </p>
         <%}%>
@@ -19,7 +19,11 @@
     
                 <div class="post-card">
                     <div class="post-image">
-                        <img src="/images/dummy.webp" height="100%" width="100%">
+                        <%if(post.postImages.length == 0 ){%>
+                            <img src="/images/dummy.webp" height="100%" width="100%">
+                        <%}else{%>
+                            <img src="/<%=post.postImages[0]%>" height="100%" width="100%">
+                        <%}%>
                     </div>
                     <div class="post-info-part">
                         <div class="post-heading">
@@ -62,11 +66,7 @@
                     <h1>
                         Comments.
                     </h1>
-                    <%if(post.comments.length == 0 ){%>
-                        <p style="color: red; font-family: monospace;">
-                            No Comments Availbale.
-                        </p>
-                    <%}%>
+                   
                     <% for(let comment of post.comments){%>
                         <div class="comment-card" >
                             <div class="comment-creater">
@@ -99,6 +99,11 @@
 
 
     <div class="comment-main-card">
+        <%if(allComments.length == 0 ){%>
+            <p style="color: red; font-family: monospace; font-size: 2rem; font-weight: 900;">
+                No Comments Availbale.
+            </p>
+        <%}%>
         <% for(let comment of allComments){%>
             <div class="comment-card" >
                 <div class="comment-creater">
@@ -117,11 +122,6 @@
                 <%}%>
             </div>
             
-        <%}%>
-        <%if(allComments.length == 0){%>
-            <h2>
-                No Comments Available.
-            </h2>
         <%}%>
     </div>
 </div>

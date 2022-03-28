@@ -23,7 +23,20 @@
 
             <div class="post-card">
                 <div class="post-image">
-                    <img src="/images/dummy.webp" height="100%" width="100%">
+                    <%if(post.postImages.length == 0 ){%>
+                        <img src="/images/dummy.webp" height="100%" width="100%">
+                    <%}else{%>
+                    <i class="fas fa-angle-left fa-2x slide-image-left"></i>
+                    <i class="fas fa-angle-right fa-2x slide-image-right" ></i>
+                        <div class="large-image-box" data-imageNumber="<%= post.postImages.length%>">
+                            
+                            <!-- <i class="fas fa-caret-circle-left fa-2x slide-image-left"></i>
+                            <i class="fas fa-caret-circle-right fa-2x slide-image-right" ></i> -->
+                            <%for(image of post.postImages){%>
+                                <img src="/<%=image%>" height="100%" width="100%" class="image-screen" >
+                            <%}%>
+                        </div> 
+                    <%}%>
                 </div>
                 <div class="post-info-part">
                     <div class="post-heading">

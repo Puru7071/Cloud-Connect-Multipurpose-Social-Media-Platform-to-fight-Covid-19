@@ -107,17 +107,17 @@ module.exports.addBio = async function(request , response){
         let user = await users.findById(request.params.id)  ; 
         users.uploadedAvatar(request , response , function(error){
             if(error){
-                console.log("Something went wrong: ", error) ; 
                 request.flash("error" , "Something went wrong") ; 
+                return response.redirect("back") ; 
             }
             if(request.body.Bio){
                 user.personlInfo = request.body.Bio ; 
                 request.flash("success" , "Bio Updated Successfully") ; 
             }
             if(request.file){
-                if(user.avatar){
-                    fs.unlinkSync(path.join(__dirname , ".." , user.avatar)) ; 
-                }
+                // if(user.avatar){
+                //     fs.unlinkSync(path.join(__dirname , ".." , user.avatar)) ; 
+                // }
                 user.avatar = users.avatarPath + "/" + request.file.filename; 
                 console.log(request.file) ; 
                 

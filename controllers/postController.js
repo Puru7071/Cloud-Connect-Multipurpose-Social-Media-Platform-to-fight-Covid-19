@@ -3,18 +3,38 @@ const comments = require("../models/commentSchema") ;
 const req = require("express/lib/request");
 const { response } = require("express");
 const { post } = require("../routes/postRouter");
+const path = require("path") ; 
+const fs = require("fs") ;
 
-module.exports.createPost = function(request , response){
+module.exports.createPost =  function(request , response){
     try{
-        posts.create({
-            title : request.body.title , 
-            postDescription : request.body.postDescription , 
-            user : request.user._id 
-        } , function(error , post){
-            request.flash("success" , `Successfully created post.`) ; 
+        posts.uploadedPostImages(request , response , async function(error){
+            if(error){
+                console.error(`Something went wrong: ${error}`) ; 
+                request.flash("error" , "Something went wrong") ; 
+                return response.redirect("back") ; 
+            }
+            let post =  await posts.create({
+                user : request.user._id,
+                title : request.body.title , 
+                postDescription : request.body.postDescription, 
+                postImages: [] 
+            })  ;  
+            console.log(request.files) ;
+            console.log(post.postImages) ; 
+            
+            if(request.files){
+                for(let fle of request.files) {
+                    post.postImages.push(posts.imagesPath + "/" + fle.filename) ; 
+                }
+            }
+            post.save() ; 
+            request.flash("success" , "Successfully Created Post") ;
             return response.redirect("back") ; 
         }) ; 
+
     }catch(error){
+        console.error(` 555555555555555   ${error}`) ; 
         request.flash("error" , `Error in creating post.`) ;
         return response.redirect("back") ;
     }
@@ -25,6 +45,9 @@ module.exports.deletePost =  async function(request , response){
         let post = await posts.findById(request.params.id); 
         //This is way to convert the object type into string request.user.id
         if(request.user.id == post.user){
+            for(let pth of post.postImages) {
+                fs.unlinkSync(path.join(__dirname , ".." , pth)) ;
+            }
             post.remove() ; 
     
             comments.deleteMany({post : request.params.id} , function(error){

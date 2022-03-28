@@ -55,7 +55,8 @@ app.use(passport.setAuthenticatedUser) ;
 app.use(flash()) ; 
 app.use(myMware.setFlash) ; 
 
-app.use("/uploads" , express.static(__dirname + "/uploads"))
+app.use("/uploads/users/avatars" , express.static(__dirname + "/uploads/users/avatars")) ; 
+app.use("/uploads/users/posts" ,express.static(__dirname + "/uploads/users/posts")) ; 
 app.use("/" , require("./routes/homePageRouter")) ; 
 
 app.listen(port , function(error){

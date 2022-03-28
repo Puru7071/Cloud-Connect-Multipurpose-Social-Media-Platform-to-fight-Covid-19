@@ -265,6 +265,26 @@ html::-webkit-scrollbar-track{
     box-sizing: border-box;
     overflow: hidden;
     border-right: 5px solid white;
+    position: relative;
+}
+.image-screen{
+    width: 400px;
+}
+.slide-image-left , .slide-image-right{
+    position: absolute;  
+    top: 40% ; 
+    cursor: pointer;
+    color: #003049;
+    z-index: 900;
+}
+.large-image-box{
+    width: 700%;
+    height: 100% ; 
+    display: flex;
+    position: relative;
+}
+.slide-image-right{
+    right: 0%;
 }
 .post-info-part{
     width: 60%;
