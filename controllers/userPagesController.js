@@ -142,3 +142,19 @@ module.exports.destroySession = function(request , resposne){
     request.flash("success" , "Logged out Successfully!!!") ; 
     return resposne.redirect("/") ; 
 }
+
+module.exports.showLiveUpdates = function(request , response){
+    return response.render("liveUpdates" , {
+        layout : "liveUpdates.ejs" 
+    }) ; 
+}
+module.exports.showVaccinationCenter = function(request , response){
+    return response.render("showVac" , {
+        layout : "showVac.ejs"
+    }) ; 
+}
+module.exports.showAboutUS = function(request , response){
+    return response.render("showAboutUs", {
+        layout : "showAboutUs.ejs" 
+    }) ; 
+}

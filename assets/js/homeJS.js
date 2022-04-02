@@ -21,31 +21,33 @@ for(let i = 0 ; i < commentSection.length ; i += 1){
         }
     }) ;
 }
-
 var leftBtn = document.getElementsByClassName("slide-image-left") ; 
 var rightBtn = document.getElementsByClassName("slide-image-right") ; 
 var imageScreen = document.getElementsByClassName("large-image-box") ; 
-var currentPos = 0 ; 
+var currentPos = [] ; 
+
+for(let i = 0 ; i < leftBtn.length ; i += 1){
+    currentPos.push(0) ; 
+}
+
 
 for(let i = 0 ; i < leftBtn.length ; i += 1){
     leftBtn[i].addEventListener("click" , function(event){
         event.stopPropagation() ; 
-        if(currentPos < 0 ){
-            currentPos += 400 ; 
-            console.log("clicked1") ; 
-            imageScreen[i].style.left = currentPos.toString() + "px" ; 
+        if(currentPos[i] < 0 ){
+            currentPos[i] += 500 ; 
+            imageScreen[i].style.left = currentPos[i].toString() + "px" ; 
         }
     }) ;
     
     rightBtn[i].addEventListener("click" , function(event){
         event.stopPropagation()  ;
         console.log(imageScreen[i].getAttribute("data-imageNumber")) ;
-        factor = parseInt(imageScreen[i].getAttribute("data-imageNumber")) - 1 ; 
+        let factor = parseInt(imageScreen[i].getAttribute("data-imageNumber")) - 1 ; 
         console.log(factor) ; 
-        if(currentPos > (factor*400)*(-1)){
-            currentPos -= 400 ; 
-            console.log("clicked2 " + currentPos) ; 
-            imageScreen[i].style.left = currentPos.toString() + "px" ; 
+        if(currentPos[i]  > (factor*500)*(-1)){
+            currentPos[i] -= 500 ; 
+            imageScreen[i].style.left = currentPos[i].toString() + "px" ; 
         }
         
     }) ; 

@@ -63,34 +63,7 @@
     </div>
     <%- include("postP") -%>
 
-    <div class="aside-section-for-links">
-        <div class="quick-links-heading">
-            Quick Links
-        </div>
-        <div class="quick-links">
-            <a href="">
-                <i class="fas fa-store"></i>&nbsp;Online Store
-            </a> <br>
-            <a href="">
-                <i class="fas fa-satellite-dish"></i>&nbsp;Live Updates
-            </a><br>
-            <a href="">
-                <i class="fas fa-capsules"></i>&nbsp;Vac. Centers
-            </a><br>
-            <a href="/users/home-page">
-                <i class="fas fa-home"></i>&nbsp;Home
-            </a><br>
-            <a href="/users/profile/<%= user._id%>">
-                <i class="fas fa-user"></i>&nbsp;Profile
-            </a><br>
-            <a href="">
-                <i class="fas fa-info"></i>&nbsp; About Us
-            </a><br>
-        </div>
-    </div>
-    <div class="social-media-links">
-
-    </div>
+    <%- include("asideSection") -%>
 
     <script type="text/javascript" src="/js/homeJS.js"></script>
 

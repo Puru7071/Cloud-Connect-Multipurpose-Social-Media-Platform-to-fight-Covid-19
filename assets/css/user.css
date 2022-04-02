@@ -22,7 +22,7 @@ html::-webkit-scrollbar-track {
   background: #b3b3b3; }
 
 .header-for-user-profile {
-  z-index: 20;
+  z-index: 10000;
   height: 80px;
   width: 100vw;
   background-color: #00b4d8;
@@ -30,7 +30,8 @@ html::-webkit-scrollbar-track {
   justify-content: space-around;
   align-items: center;
   align-items: center;
-  position: fixed; }
+  position: fixed;
+  top: 0px; }
   .header-for-user-profile p a {
     color: white;
     text-decoration: none;
@@ -253,7 +254,7 @@ html::-webkit-scrollbar-track {
   display: flex; }
 
 .post-image {
-  width: 40%;
+  width: 50%;
   height: 90%;
   box-sizing: border-box;
   overflow: hidden;
@@ -261,14 +262,17 @@ html::-webkit-scrollbar-track {
   position: relative; }
 
 .image-screen {
-  width: 400px; }
+  width: 500px; }
 
 .slide-image-left, .slide-image-right {
   position: absolute;
   top: 40%;
   cursor: pointer;
-  color: #003049;
-  z-index: 900; }
+  color: white;
+  z-index: 900;
+  background-color: black;
+  border-radius: 20px;
+  opacity: 0.4; }
 
 .large-image-box {
   width: 700%;
@@ -280,7 +284,7 @@ html::-webkit-scrollbar-track {
   right: 0%; }
 
 .post-info-part {
-  width: 60%;
+  width: 50%;
   height: 90%;
   position: relative; }
 

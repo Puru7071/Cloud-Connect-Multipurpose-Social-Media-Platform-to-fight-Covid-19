@@ -103,3 +103,38 @@ document.getElementsByClassName("show-post-button")[0].addEventListener("click" 
     document.getElementsByClassName("comment-main-card")[0].style.display = "none" ; 
     document.getElementsByClassName("move-up-whole")[0].style.display = "block" ; 
 }) ; 
+
+
+
+var leftBtn = document.getElementsByClassName("slide-image-left") ; 
+var rightBtn = document.getElementsByClassName("slide-image-right") ; 
+var imageScreen = document.getElementsByClassName("large-image-box") ; 
+var currentPos = [] ; 
+
+for(let i = 0 ; i < leftBtn.length ; i += 1){
+    currentPos.push(0) ; 
+}
+
+
+for(let i = 0 ; i < leftBtn.length ; i += 1){
+    leftBtn[i].addEventListener("click" , function(event){
+        event.stopPropagation() ; 
+        if(currentPos[i] < 0 ){
+            currentPos[i] += 500 ; 
+            imageScreen[i].style.left = currentPos[i].toString() + "px" ; 
+        }
+    }) ;
+    
+    rightBtn[i].addEventListener("click" , function(event){
+        event.stopPropagation()  ;
+        console.log(imageScreen[i].getAttribute("data-imageNumber")) ;
+        let factor = parseInt(imageScreen[i].getAttribute("data-imageNumber")) - 1 ; 
+        console.log(factor) ; 
+        if(currentPos[i]  > (factor*500)*(-1)){
+            currentPos[i] -= 500 ; 
+            imageScreen[i].style.left = currentPos[i].toString() + "px" ; 
+        }
+        
+    }) ; 
+}
+

@@ -12,6 +12,12 @@ router.post("/add-bio/:id" ,passport.checkAuthentication, userController.addBio)
 
 router.get("/home-page" , passport.checkAuthentication , userController.showHomePage) ; 
 
+router.get("/live-updates" , passport.checkAuthentication , userController.showLiveUpdates) ; 
+
+router.get("/vac-center" , passport.checkAuthentication , userController.showVaccinationCenter) ; 
+
+router.get("/about-us" , passport.checkAuthentication , userController.showAboutUS) ; 
+
 router.post("/sign-up" , userController.createNewUser) ; 
 
 router.post("/sign-in" ,passport.authenticate(
