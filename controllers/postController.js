@@ -23,13 +23,27 @@ module.exports.createPost =  function(request , response){
             console.log(request.files) ;
             console.log(post.postImages) ; 
             
+
             if(request.files){
+                
                 for(let fle of request.files) {
                     post.postImages.push(posts.imagesPath + "/" + fle.filename) ; 
                 }
             }
+
+            console.log("enterd!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11") ; 
+
+            
             post.save() ; 
             request.flash("success" , "Successfully Created Post") ;
+            // if(request.xhr){
+            //     return response.status(200).json({
+            //         data:{
+            //             post : post
+            //         } , 
+            //         message : "Post Created Successfully!"
+            //     })
+            // }
             return response.redirect("back") ; 
         }) ; 
 

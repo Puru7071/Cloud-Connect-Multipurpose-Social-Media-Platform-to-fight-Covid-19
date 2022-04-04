@@ -9,8 +9,12 @@
     </title>
     <link rel="shorcut icon" type="image/x-icon" href="../images/fevion.png">
     <script src="https://kit.fontawesome.com/22406f9d4d.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
     <link href="https://cdn.staticaly.com/gh/hung1001/font-awesome-pro/4cac1a6/css/all.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="/css/user.css"> 
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css"> 
+
+    
 </head>
 <body>
 
@@ -93,7 +97,7 @@
         </div>
     </div>
     <% if(locals.user.id == targetUser.id){%>
-        <form class="create-post-form" method="POST" action="/posts/create-post" data-isAllJsNeeded = "true" enctype="multipart/form-data">
+        <form class="create-post-form" id = "create-post" method="POST" action="/posts/create-post" data-isAllJsNeeded = "true" enctype="multipart/form-data">
             <label for="title">Give Title of Post <i class="fas fa-level-down"></i></label>
             <br>
             <input required id="title" name="title" placeholder="Add Title" maxlength="80">
@@ -104,7 +108,7 @@
             <br><br><br><br>
             <input type="file" name="postImages" placeholder="Images" multiple>
             <br><br>
-            <button type="submit" class="create-post-button remove-pos">
+            <button type="submit" class="create-post-button remove-pos" id="submit-btn">
                 <i class="fas fa-plus " ></i>&nbsp; Create Post
             </button>
         </form>
@@ -156,6 +160,9 @@
         </div>
     </div>
         <%- include("postUP") -%>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript" src="/js/userJS.js"></script>
        
 </body>

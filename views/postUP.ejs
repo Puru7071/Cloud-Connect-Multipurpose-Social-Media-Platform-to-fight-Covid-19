@@ -1,6 +1,6 @@
 <div class="comment-post-slider">
     
-    <div class="move-up-whole">
+    <div class="move-up-whole" id="post-section">
         <%if(posts.length == 0 ){%>
             <p style="font-family: monospace; font-weight: 900; color: red; font-size: 2rem;">
                 No post Availbale.
@@ -25,9 +25,6 @@
                                 <i class="fas fa-angle-left fa-3x slide-image-left"></i>
                                 <i class="fas fa-angle-right fa-3x slide-image-right" ></i>
                             <div class="large-image-box" data-imageNumber="<%= post.postImages.length%>">
-                                
-                                <!-- <i class="fas fa-caret-circle-left fa-2x slide-image-left"></i>
-                                <i class="fas fa-caret-circle-right fa-2x slide-image-right" ></i> -->
                                 <%for(image of post.postImages){%>
                                     <img src="/<%=image%>" height="100%" width="100%" class="image-screen" >
                                 <%}%>
