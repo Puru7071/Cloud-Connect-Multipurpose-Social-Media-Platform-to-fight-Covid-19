@@ -1,45 +1,46 @@
-var searchBtn = document.getElementById("search-btn");
+(function () {
+    var searchBtn = document.getElementById("search-btn");
 
 
-var today = new Date();
-var yyyy = today.getFullYear();
-let mm = today.getMonth() + 1; // Months start at 0!
-let dd = today.getDate();
+    var today = new Date();
+    var yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
 
-if (dd < 10) dd = '0' + dd;
-if (mm < 10) mm = '0' + mm;
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
 
-today = dd + '-' + mm + '-' + yyyy;
+    today = dd + '-' + mm + '-' + yyyy;
 
-console.log(today);
+    console.log(today);
 
-var pinCode;
+    var pinCode;
 
-searchBtn.addEventListener("click", function (event) {
-    var inputField = document.getElementById("input-field-pinCode");
-    var displayArea = document.getElementById("area-for-vaccination-center-detail");
+    searchBtn.addEventListener("click", function (event) {
+        var inputField = document.getElementById("input-field-pinCode");
+        var displayArea = document.getElementById("area-for-vaccination-center-detail");
 
-    event.stopPropagation();
-    pinCode = parseInt(inputField.value);
+        event.stopPropagation();
+        pinCode = parseInt(inputField.value);
 
-    var xhrRequest = new XMLHttpRequest();
-    xhrRequest.open("get", `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${pinCode}&date=${today}
+        var xhrRequest = new XMLHttpRequest();
+        xhrRequest.open("get", `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${pinCode}&date=${today}
         `, true);
-    xhrRequest.send();
-    xhrRequest.onload = function () {
-        var responseJSON = JSON.parse(xhrRequest.response);
-        var vacCenters = responseJSON.sessions;
-        displayArea.innerHTML = `` ; 
-        console.log(vacCenters);
-        if (!vacCenters ) {
-            displayArea.innerHTML = `<h1>Wrong Pincode.</h1>`
-        }
-        if(vacCenters.length == 0){
-            displayArea.innerHTML = `<h1>No Vaccine Center Available.</h1>`
-        }
+        xhrRequest.send();
+        xhrRequest.onload = function () {
+            var responseJSON = JSON.parse(xhrRequest.response);
+            var vacCenters = responseJSON.sessions;
+            displayArea.innerHTML = ``;
+            console.log(vacCenters);
+            if (!vacCenters) {
+                displayArea.innerHTML = `<h1>Wrong Pincode.</h1>`
+            }
+            if (vacCenters.length == 0) {
+                displayArea.innerHTML = `<h1>No Vaccine Center Available.</h1>`
+            }
 
-        for (let i = 0; i < vacCenters.length; i += 1) {
-            displayArea.innerHTML += `
+            for (let i = 0; i < vacCenters.length; i += 1) {
+                displayArea.innerHTML += `
                 <div class="vac-center-cards">
                     <div class="center-name">
                         ${vacCenters[i].name}
@@ -122,10 +123,12 @@ searchBtn.addEventListener("click", function (event) {
                 </div>
 
                 `
+            }
         }
-    }
 
 
 
-});
+    });
 
+
+})();  

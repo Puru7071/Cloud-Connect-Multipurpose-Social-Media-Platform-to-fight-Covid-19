@@ -158,3 +158,14 @@ module.exports.showAboutUS = function(request , response){
         layout : "showAboutUs.ejs" 
     }) ; 
 }
+module.exports.showWmap = function(request , response){
+    return response.render("showWmap" , {
+        layout: "showWmap.ejs" 
+    }) ; 
+}
+
+module.exports.showLnews = function(request , response){
+    return response.render("showLNews" , {
+        layout : "showLnews.ejs" 
+    }) ; 
+}

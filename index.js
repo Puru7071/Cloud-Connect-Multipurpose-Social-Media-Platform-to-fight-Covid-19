@@ -6,6 +6,7 @@ const port = 7777 ;
 const session = require("express-session") ; 
 const passport = require("passport") ; 
 const passportLocal = require("./config/passport-local-stategy")  ; 
+const googleOAuth = require("./config/passport-google-OAuth") ; 
 const sassMiddleware = require("node-sass-middleware") ; 
 const flash = require("connect-flash") ; 
 const myMware = require("./config/middleware") ; 
