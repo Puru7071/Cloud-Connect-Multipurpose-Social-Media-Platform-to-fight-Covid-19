@@ -6,6 +6,7 @@ const res = require("express/lib/response");
 const path = require("path") ; 
 const fs = require("fs") ; 
 
+
 module.exports.createNewUser = function(request , response){
     if(request.body.password != request.body.CPassword){
         console.error("Password entered not same.") ; 

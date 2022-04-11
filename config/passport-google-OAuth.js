@@ -14,7 +14,7 @@ passport.use(new googlOAuth({
                 console.error(`Error in google stategy passport: ${error}`) ; 
                 return ; 
             }
-            console.log("*********************"+profile.emails[0]+"*********************") ; 
+            console.log("*********************"+profile.emails+"*********************") ; 
 
             if(user){
                 return done(null , user) ; 
@@ -22,8 +22,8 @@ passport.use(new googlOAuth({
                 User.create({
                     name : profile.displayName , 
                     email : profile.emails[0].value , 
-                    passport: crypto.randomBytes(20).toString("hex") 
-                } , function(erro , user){
+                    password: crypto.randomBytes(20).toString("hex") 
+                } , function(error , user){
                     if(error){
                         console.error("Error in creating a new user: " + error) ; 
                         return ; 

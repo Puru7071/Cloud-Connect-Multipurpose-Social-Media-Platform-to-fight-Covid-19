@@ -1,10 +1,14 @@
 const posts = require("../models/postSchema") ; 
 const comments = require("../models/commentSchema") ; 
+const User = require("../models/userInfoSchema") ; 
 const req = require("express/lib/request");
 const { response } = require("express");
 const { post } = require("../routes/postRouter");
 const path = require("path") ; 
 const fs = require("fs") ;
+const commentsMialer = require("../mailer/commentMailer") ; 
+
+
 
 module.exports.createPost =  function(request , response){
     try{
@@ -94,6 +98,13 @@ module.exports.createComment = async function(request , response){
                 user : request.user._id
             }); 
             post.comments.push(comment)  ; 
+            comment = await comment.populate("user" , "name email") ; 
+            comment = await comment.populate("post" , "title") ; 
+            let user = await User.findById(post.user) ; 
+            console.log(user.email) ;  
+
+            commentsMialer.newComment(comment ,user.email , user.name) ; 
+            console.log("*************************************************\n" + comment) ; 
             post.save() ;
             console.log(`New Comment added successfully!!\n ${comment}`) ; 
             request.flash("success" , "Comment added successfully") ; 
