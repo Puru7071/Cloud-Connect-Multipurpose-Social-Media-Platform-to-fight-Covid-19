@@ -10,9 +10,31 @@
     <link rel="shorcut icon" type="image/x-icon" href="../images/fevion.png">
     <script src="https://kit.fontawesome.com/22406f9d4d.js" crossorigin="anonymous"></script>
     <link href="https://cdn.staticaly.com/gh/hung1001/font-awesome-pro/4cac1a6/css/all.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="./css/home.css"> 
+    <link rel="stylesheet" type="text/css" href="css/home.css"> 
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css"> 
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
 </head>
 <body>
+    <script>
+        <% if(flash.success && flash.success.length > 0){%>
+            new Noty({
+                theme: 'semanticui' , 
+                text: "<%= flash.success%>" , 
+                type : "success" , 
+                layout : "topRight" , 
+                timeout : 3000
+            }).show() 
+        <%}%>
+        <% if(flash.error && flash.error.length > 0){%>
+            new Noty({
+                theme: 'semanticui' , 
+                text: "<%= flash.error%>" , 
+                type : "error" , 
+                layout : "topRight" , 
+                timeout : 1500 
+            }).show() 
+        <%}%>
+    </script>
     <div id = "container">
 
         <div id = "image-container">
@@ -27,7 +49,11 @@
                 </div>
 
                 <div id="Web-message" class="txt-center">
+<<<<<<< HEAD
                         "A Social Media website for geeks like you who never settle for less".
+=======
+                        "A one stop solution to fight Covid-19".
+>>>>>>> back
                     
                 </div>
             </div>
@@ -41,7 +67,12 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     
 <script type="text/javascript" src="./js/entryScript.js"></script>
+=======
+    <script type="text/javascript" src="./js/entryJs.js"></script>
+
+>>>>>>> back
 </body>
 </html>

@@ -5,12 +5,25 @@ const path = require("path") ;
 const port = 7777 ; 
 const session = require("express-session") ; 
 const passport = require("passport") ; 
-const passportLocal = require("./config/passport-local-strategy")  ; 
-
-
+const passportLocal = require("./config/passport-local-stategy")  ; 
+const googleOAuth = require("./config/passport-google-OAuth") ; 
+const sassMiddleware = require("node-sass-middleware") ; 
+const flash = require("connect-flash") ; 
+const myMware = require("./config/middleware") ; 
+ 
 
 const app = express() ; 
 const db = require("./config/mongoose") ; 
+const Mongostore = require("connect-mongo");
+const exp = require("constants");
+
+app.use(sassMiddleware({
+    src: "./assets/scss" , 
+    dest: "./assets/css" , 
+    debug : true , 
+    outputStyle : "extended" , 
+    prefix : "/css"
+})) ;
 
 app.set("view engine" , "ejs") ; 
 app.set("views" , path.join(__dirname , "views")) ; 
@@ -19,24 +32,33 @@ app.set("layout extractStyles" , true) ;
 
 app.use(expressLayouts)
 app.use(cookieParser()) ; 
-app.use(express.static("assets")) ; 
+app.use(express.static(path.join(__dirname , "assets"))) ; 
 app.use(express.urlencoded()) ; 
-app.use("/" , require("./routes/homePageRouter")) ; 
 
 app.use(session({
-    name: "CloudConnect" , 
-    secret: "SomethingFuckingSerious" , 
+    name : "CloudConnect" , 
+    resave : false , 
+    secret : "This is fucking serious." , 
     saveUninitialized : false , 
-    resave : false, 
-    cookie: {
-        maxAge: (1000* 60 * 100) 
-        // this is time in milseconds and 
-        // equivalently equal to 100 minutes.
-    }
-}));  
-
+    cookie : {
+        maxAge : (1000 * 120 * 60 ) 
+    },
+    store: Mongostore.create({
+                 mongoUrl: 'mongodb://localhost/SocialMediaDatabase',
+                 autoRemove:'disabled'
+        })
+})) ; 
 app.use(passport.initialize()) ; 
 app.use(passport.session()) ; 
+
+app.use(passport.setAuthenticatedUser) ; 
+
+app.use(flash()) ; 
+app.use(myMware.setFlash) ; 
+
+app.use("/uploads/users/avatars" , express.static(__dirname + "/uploads/users/avatars")) ; 
+app.use("/uploads/users/posts" ,express.static(__dirname + "/uploads/users/posts")) ; 
+app.use("/" , require("./routes/homePageRouter")) ; 
 
 app.listen(port , function(error){
     if(error){
@@ -46,3 +68,4 @@ app.listen(port , function(error){
     console.log(`Server is up and running on port no: ${port}`) ; 
     return ; 
 }) ;
+
