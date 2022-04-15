@@ -1,21 +1,44 @@
+// using express as the framework to manage the project directory stucture and also we are
+//fallowing MVC architecture for managing the project's directory.
+
 const express = require("express") ; 
+
+// layouts basically help making ejs files generalized that has some changes and 
+// those changes can be embedded with use of <%- body %> where we need insert the changes
+// (change are also ejs files).This help in distributing code when the code base 
+// grows by many folds. This is used as middleware.
+
 const expressLayouts = require("express-ejs-layouts") ; 
+
+// this library deals with  cookies.
 const cookieParser = require("cookie-parser") ; 
+
+// this library returns path when we combine strings.
 const path = require("path") ;
+
+// Defining the port on which the website would run.
 const port = 7777 ; 
-const session = require("express-session") ; 
+
+const session = require("express-session") ;
+
+// making the passport files available for different types of the authentications.
 const passport = require("passport") ; 
+
 const passportLocal = require("./config/passport-local-stategy")  ; 
+
 const googleOAuth = require("./config/passport-google-OAuth") ; 
+
 const sassMiddleware = require("node-sass-middleware") ; 
+
 const flash = require("connect-flash") ; 
+
 const myMware = require("./config/middleware") ; 
  
-
+// Use this to fire the express.
 const app = express() ; 
 const db = require("./config/mongoose") ; 
 const Mongostore = require("connect-mongo");
-const exp = require("constants");
+
 
 app.use(sassMiddleware({
     src: "./assets/scss" , 
@@ -25,14 +48,37 @@ app.use(sassMiddleware({
     prefix : "/css"
 })) ;
 
+// View engine that we are using is EJS ie embedded JavaScript it help us to make webpages dynammic as 
+// we can use the javascript in html like stuctured file with extension as .ejs to display the 
+// required info. Views basically get the required info from the Database with help of various controller
+// being setup for the various routes ie for various incoming request.
+
 app.set("view engine" , "ejs") ; 
+
+//setting directory where the views would be there for all normal requests.
 app.set("views" , path.join(__dirname , "views")) ; 
+
+// using expressLayouts as middleware to use layouts.
+app.use(expressLayouts) ; 
+
+// If we set the 'layout extractScripts' to true then the all sripts used in views will 
+// exracted and will be made avialable for the layouts and will be placed where we write 
+// <%- script %> all scripts exracted will be placed.
 app.set("layout extractScripts" , true) ; 
+
+
+// If we set the 'layout extractStyles' to true then the all styles used in views will 
+// exracted and will be made avialable for the layouts and will be placed where we write 
+// <%- style %> all styles exracted will be placed.
 app.set("layout extractStyles" , true) ; 
 
-app.use(expressLayouts)
+// helps us to deal with cookies.
 app.use(cookieParser()) ; 
+
+// this tells the path of files like CSS, JS, Images, Fonts required by the views.
 app.use(express.static(path.join(__dirname , "assets"))) ; 
+
+// this middleware converts the request from string to JSON. 
 app.use(express.urlencoded()) ; 
 
 app.use(session({
@@ -56,10 +102,16 @@ app.use(passport.setAuthenticatedUser) ;
 app.use(flash()) ; 
 app.use(myMware.setFlash) ; 
 
+// if the path of the request is as follow for the below 2 lines then 
+// static file is find in below path mentioned.
 app.use("/uploads/users/avatars" , express.static(__dirname + "/uploads/users/avatars")) ; 
 app.use("/uploads/users/posts" ,express.static(__dirname + "/uploads/users/posts")) ; 
+
+// if the request is for url starts from "/" then the homePageRouter comes 
+// into the picture where furthure dealing is being made.
 app.use("/" , require("./routes/homePageRouter")) ; 
 
+// telling the server to work on the port given incase o error there is callback fn to deal with it.
 app.listen(port , function(error){
     if(error){
         console.error(`Server was not able to start due to: ${error}`) ; 

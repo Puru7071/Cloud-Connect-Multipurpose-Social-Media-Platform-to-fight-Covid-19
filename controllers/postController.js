@@ -62,6 +62,7 @@ module.exports.deletePost =  async function(request , response){
    try{
         let post = await posts.findById(request.params.id); 
         //This is way to convert the object type into string request.user.id
+        console.log(request.user._id , "+++++++++++++" , request.user.id) ; 
         if(request.user.id == post.user){
             for(let pth of post.postImages) {
                 fs.unlinkSync(path.join(__dirname , ".." , pth)) ;
