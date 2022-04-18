@@ -19,6 +19,7 @@ const path = require("path") ;
 // Defining the port on which the website would run.
 const port = 7777 ; 
 
+// 
 const session = require("express-session") ;
 
 // making the passport files available for different types of the authentications.
@@ -28,6 +29,7 @@ const passportLocal = require("./config/passport-local-stategy")  ;
 
 const googleOAuth = require("./config/passport-google-OAuth") ; 
 
+// for making use SASS. 
 const sassMiddleware = require("node-sass-middleware") ; 
 
 const flash = require("connect-flash") ; 
@@ -37,9 +39,14 @@ const myMware = require("./config/middleware") ;
 // Use this to fire the express.
 const app = express() ; 
 const db = require("./config/mongoose") ; 
+
+// This helps to store the info about the session cookie inside the the DB which can help in 
+// storing the info about the logged in user even if the server goes down still user will remain logged in till 
+// a certain time and the user will ultimately logged out after a certain time.
+
 const Mongostore = require("connect-mongo");
 
-
+// using SASS middleware.
 app.use(sassMiddleware({
     src: "./assets/scss" , 
     dest: "./assets/css" , 
@@ -81,19 +88,23 @@ app.use(express.static(path.join(__dirname , "assets"))) ;
 // this middleware converts the request from string to JSON. 
 app.use(express.urlencoded()) ; 
 
+
+// a middleware that is used to create the session cookie and making use of mongoStore to 
+// store these session cookies to the databases. 
 app.use(session({
     name : "CloudConnect" , 
     resave : false , 
-    secret : "This is fucking serious." , 
+    secret : "This is serious." , 
     saveUninitialized : false , 
     cookie : {
         maxAge : (1000 * 120 * 60 ) 
     },
     store: Mongostore.create({
-                 mongoUrl: 'mongodb://localhost/SocialMediaDatabase',
-                 autoRemove:'disabled'
+                 mongoUrl: 'mongodb://localhost/SocialMediaDatabase'
         })
 })) ; 
+
+//  these are neccessary middleware for passport.
 app.use(passport.initialize()) ; 
 app.use(passport.session()) ; 
 

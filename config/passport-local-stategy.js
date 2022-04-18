@@ -48,8 +48,8 @@ passport.serializeUser(function(user , done){
     return done(null , user.id) ; 
 }); 
 
-// deserialinzing the user's info from the session cookie so that browser can 
-// interpret the required action
+// finding the user from the session cookie stored and remember this is done on the server side 
+// so no need to worry about it.
 passport.deserializeUser(function(id , done){
     Users.findById(id , function(error ,user){
         if(error){

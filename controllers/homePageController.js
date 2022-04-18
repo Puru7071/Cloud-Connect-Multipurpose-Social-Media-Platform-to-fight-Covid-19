@@ -1,11 +1,17 @@
 const { render } = require("express/lib/response");
-const passport = require("passport") ; 
+// loading users document.
 const users = require("../models/userInfoSchema");
 
+// rendering the Sign-in page controller.
 module.exports.renderSigninPage = function(request , response){
     if(request.isAuthenticated()){
-        return response.redirect("/users/profile/" + request.user._id) ; 
+        // If the user is already authenticated then this will automatically redirect back to 
+        // profile page.
+        // What actually this function do is that it checks the session cookie for the user id and decryptes it 
+        // then find whether that user exits in Users DB.
+        return response.redirect("/users/profile/" + request.user.id) ; 
     }
+    // If user is not logged in then 
     console.log("Sign-In Page Rendered") ; 
     var data = {
         layout : "layout1.ejs" , 
@@ -14,10 +20,10 @@ module.exports.renderSigninPage = function(request , response){
     return response.render("sign-in" , data ) ; 
 }
 
-
+// rendering the Sign-up page controller.
 module.exports.renderSignUpPage = function(request , response){
     if(request.isAuthenticated()){
-        return response.redirect("/users/profile/" + request.user._id) ; 
+        return response.redirect("/users/profile/" + request.user.id) ; 
     }
     console.log("Sign-Up Page Rendered") ; 
     var data = {
@@ -27,10 +33,10 @@ module.exports.renderSignUpPage = function(request , response){
     return response.render("sign-up" , data) ; 
 }
 
-
+// rendering the main page of website controller.
 module.exports.renderHomePage = function(request , response){
     if(request.isAuthenticated()){
-        return response.redirect("/users/profile/" + request.user._id) ; 
+        return response.redirect("/users/profile/" + request.user.id) ; 
     }
     console.log("Home Page Rendered") ; 
     var data = {

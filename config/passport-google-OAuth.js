@@ -22,6 +22,8 @@ passport.use(new googlOAuth({
                 User.create({
                     name : profile.displayName , 
                     email : profile.emails[0].value , 
+                    // generating random 20 Bytes and then converting it to String where for number we are using
+                    // hexdecimal number system.
                     password: crypto.randomBytes(20).toString("hex") 
                 } , function(error , user){
                     if(error){
