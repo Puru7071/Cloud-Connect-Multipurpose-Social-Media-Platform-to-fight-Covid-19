@@ -43,8 +43,10 @@ router.post("/sign-in" ,passport.authenticate(
 
 router.get("/sign-out",userController.destroySession) ; 
 
+// telling all the info we require from the google after the authetication. 
 router.get('/auth/google' , passport.authenticate("google" , {scope: ['profile' , 'email']})) ; 
 
+// when callback request hits then we are going to authicate user on the basis of the info recieved.
 router.get("/auth/google/callback" ,passport.authenticate(
     "google" ,
     {failureRedirect : '/sign-in'} , 

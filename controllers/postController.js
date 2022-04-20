@@ -23,13 +23,13 @@ module.exports.createPost =  function(request , response){
                 request.flash("error" , "Something went wrong") ; 
                 return response.redirect("back") ; 
             }
-            // now creating post with an emty array of postImages.
+            // now creating post with an empty array of postImages.
             let post =  await posts.create({
                 user : request.user._id,
                 title : request.body.title , 
                 postDescription : request.body.postDescription, 
                 postImages: [] 
-            })  ;  
+            }) ;  
             console.log(request.files) ;
             console.log(post.postImages) ; 
             

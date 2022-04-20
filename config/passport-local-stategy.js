@@ -9,7 +9,7 @@ const LocalStrategy = require("passport-local") ;
 const Users = require("../models/userInfoSchema") ; 
 
 
-//  telling the passport middleware that we are going to use this Strategy with the following properties.
+//  telling the passport that we are going to use this Strategy with the following properties.
 passport.use(new LocalStrategy({
     // field in our schema that is unique.
     usernameField : "email" , 

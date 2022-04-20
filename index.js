@@ -19,7 +19,7 @@ const path = require("path") ;
 // Defining the port on which the website would run.
 const port = 7777 ; 
 
-// 
+// this encryptes the session cookies.
 const session = require("express-session") ;
 
 // making the passport files available for different types of the authentications.
@@ -29,11 +29,11 @@ const passportLocal = require("./config/passport-local-stategy")  ;
 
 const googleOAuth = require("./config/passport-google-OAuth") ; 
 
-// for making use SASS. 
+// for making use of SASS. 
 const sassMiddleware = require("node-sass-middleware") ; 
 
 const flash = require("connect-flash") ; 
-
+ 
 const myMware = require("./config/middleware") ; 
  
 // Use this to fire the express.
