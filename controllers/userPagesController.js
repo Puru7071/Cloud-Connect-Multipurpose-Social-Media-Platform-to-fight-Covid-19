@@ -150,7 +150,7 @@ module.exports.addBio = async function(request , response){
                     // if file already there then we need to delete the current avatar file.
                     fs.unlinkSync(path.join(__dirname , ".." , user.avatar)) ; 
                 }
-                // now setting the avatar file in tht destination starge.
+                // now setting the avatar's path in the avatar of the user
                 user.avatar = users.avatarPath + "/" + request.file.filename; 
                 console.log(request.file) ; 
                 
