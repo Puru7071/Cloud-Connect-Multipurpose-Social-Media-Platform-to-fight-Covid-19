@@ -68,6 +68,7 @@ passport.checkAuthentication = function(request , response , next){
     // if the user is not signed in 
     return response.redirect('/sign-in') ; 
 }
+// this middleware sets the user in the locals of the page. 
 passport.setAuthenticatedUser = function(request, response, next){
     if (request.isAuthenticated()){
         response.locals.user = request.user;
