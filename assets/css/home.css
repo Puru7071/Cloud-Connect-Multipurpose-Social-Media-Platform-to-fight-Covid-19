@@ -188,3 +188,8 @@ body {
   font-family: monospace;
   position: relative;
   top: -5px; }
+
+.go-back {
+  position: absolute;
+  top: 10px;
+  right: 20px; }
