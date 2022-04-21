@@ -10,11 +10,13 @@
     <link rel="shorcut icon" type="image/x-icon" href="../images/fevion.png">
     <script src="https://kit.fontawesome.com/22406f9d4d.js" crossorigin="anonymous"></script>
     <link href="https://cdn.staticaly.com/gh/hung1001/font-awesome-pro/4cac1a6/css/all.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css">
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+
     <link rel="stylesheet" type="text/css" href="/css/user.css"> 
     <link rel="stylesheet" type="text/css" href="/css/user-home.css"> 
     <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css"> 
     <script src= "https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
-
     <script></script>
 </head>
 <body>
@@ -67,6 +69,16 @@
 
     <%- include("asideSection") -%>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js"></script>
+
+    <script>
+        $(".emoji-comment-also-there").emojioneArea({
+            pickerPosition : "top" , 
+        })
+
+       
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript" src="/js/homeJS.js"></script>
 

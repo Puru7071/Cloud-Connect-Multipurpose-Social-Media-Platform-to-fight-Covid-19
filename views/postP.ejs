@@ -70,7 +70,7 @@
             <div>
                 <form method="POST" action="/posts/create-comments" class="comment-box">
                     <label for="comment"><i class="fas fa-2x fa-comment-alt"></i></label>
-                    <input placeholder="Type here to Comment" type="text" maxlength="200" name="comment" id="comment">
+                    <input placeholder="Type here to Comment" type="text" maxlength="200" name="comment" id="comment" class="emoji-comment-also-there">
                     <input type="hidden" value="<%= post._id%>" name="postID">
                     <button class="comment-button"><i class="fas fa-pencil"></i> &nbsp;Comment</button>
                 </form>

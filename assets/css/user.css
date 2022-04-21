@@ -202,7 +202,7 @@ html::-webkit-scrollbar-track {
     margin-top: 20px; }
 
 .emoji-also-there {
-  width: 98% !important; }
+  width: 101% !important; }
 
 .adjust-change {
   position: relative;
@@ -345,44 +345,30 @@ html::-webkit-scrollbar-track {
   border-top: none;
   border-bottom: none;
   border-radius: 0px 0px 20px 20px;
-  border-bottom: 5px solid white; }
+  border-bottom: 5px solid white;
+  display: flex;
+  justify-content: space-between; }
   .comment-box label {
     color: white;
     position: relative;
     top: 8px;
     left: 10px; }
-  .comment-box input {
-    margin-left: 20px;
-    background-color: #014f86;
-    border: none;
-    border-bottom: 4px solid #ccdad1;
-    outline: none;
-    border-radius: 10px;
-    height: 40px;
-    width: 78%;
-    color: white;
-    font-size: 1.4rem;
-    font-family: monospace;
-    font-weight: 900; }
-    .comment-box input::-webkit-input-placeholder {
-      color: white;
-      font-size: 1.4rem;
-      font-family: monospace;
-      font-weight: 900; }
-    .comment-box input:focus {
-      color: white;
-      font-size: 1.4rem;
-      font-family: monospace;
-      font-weight: 900;
-      background-color: #014f86; }
+
+.emoji-comment-also-there {
+  width: 78% !important;
+  margin-left: 2% !important;
+  margin-top: 6px !important; }
 
 .view-comment-section {
   height: 35px;
   width: 100px; }
 
 .comment-button {
-  top: -50px;
-  left: 65vw; }
+  top: 2px;
+  left: -5px;
+  height: 40px;
+  width: 120px;
+  border-radius: 18px; }
 
 .comment-section {
   background-color: #003049;
