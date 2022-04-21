@@ -10,11 +10,13 @@
     <link rel="shorcut icon" type="image/x-icon" href="../images/fevion.png">
     <script src="https://kit.fontawesome.com/22406f9d4d.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
-    <link href="https://cdn.staticaly.com/gh/hung1001/font-awesome-pro/4cac1a6/css/all.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="/css/user.css"> 
-    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css"> 
 
-    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css">
+    <link href="https://cdn.staticaly.com/gh/hung1001/font-awesome-pro/4cac1a6/css/all.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css"> 
+    <link rel="stylesheet" type="text/css" href="/css/user.css"> 
+
 </head>
 <body>
 
@@ -98,13 +100,13 @@
     </div>
     <% if(locals.user.id == targetUser.id){%>
         <form class="create-post-form" id = "create-post" method="POST" action="/posts/create-post" data-isAllJsNeeded = "true" enctype="multipart/form-data">
-            <label for="title">Give Title of Post <i class="fas fa-level-down"></i></label>
+            <label for="title">Give Title of Post </label>
             <br>
-            <input required id="title" name="title" placeholder="Add Title" maxlength="80">
+            <input required id="title" name="title" placeholder="Add Title" maxlength="80" class="emoji-also-there">
             <br><br>
-            <label for="postDescription">Describe Post <i class="fas fa-level-down"></i></label>
+            <label for="postDescription">Describe Post </label>
             <br>
-            <textarea required id="postDescription" name="postDescription" placeholder="Describe post."></textarea>
+            <textarea required id="postDescription" name="postDescription" placeholder="Describe post." class="emoji-also-there"></textarea>
             <br><br><br><br>
             <input type="file" name="postImages" placeholder="Images" multiple>
             <br><br>
@@ -114,9 +116,9 @@
         </form>
         
         <form class="add-about-yourself-form" action="/users/add-bio/<%= user._id%>" method="POST" enctype="multipart/form-data">
-            <label for="title">Tell others about yourself <i class="fas fa-level-down"></i></label>
+            <label for="title">Tell others about yourself </label>
             <br>
-            <textarea maxlength="2000" name="Bio" ></textarea>
+            <textarea maxlength="2000" name="Bio" class="emoji-also-there"></textarea>
             <br><br><br><br>
 
             <input type="file" name="avatar" placeholder="Profile Picture" id="avatar">
@@ -126,11 +128,11 @@
         </form>
     <%}else{%>
         <form class="create-post-form" method="POST" action="/posts/create-post" data-q = "false">
-            <label for="title">Give Title of Post <i class="fas fa-level-down"></i></label>
+            <label for="title">Give Title of Post </label>
             <br>
             <input required id="title" name="title" placeholder="Add Title" maxlength="40">
             <br><br>
-            <label for="postDescription">Describe Post <i class="fas fa-level-down"></i></label>
+            <label for="postDescription">Describe Post </label>
             <br>
             <textarea required id="postDescription" name="postDescription" placeholder="Describe post."></textarea>
             <br><br>
@@ -140,7 +142,7 @@
         </form>
         
         <form class="add-about-yourself-form" action="/users/add-bio/<%= user._id%>">
-            <label for="title">Tell others about yourself <i class="fas fa-level-down"></i></label>
+            <label for="title">Tell others about yourself </label>
             <br>
             <textarea maxlength="2000" name="aboutUser"></textarea>
     
@@ -162,7 +164,16 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/userJS.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js"></script>
+
+    <script>
+       $(".emoji-also-there").emojioneArea({
+            pickerPosition : "bottom" , 
+            preserveDefault: true 
+        })
        
+    </script>
+    <script type="text/javascript" src="/js/userJS.js"></script>
+     
 </body>
 </html>

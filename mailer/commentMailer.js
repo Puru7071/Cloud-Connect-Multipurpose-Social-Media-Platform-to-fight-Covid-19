@@ -6,7 +6,7 @@ module.exports.newComment = function(comment , userEmail , userName){
     console.log("Mailer for Comment Added is Active now.") ; 
 
     // sending mail via transporter that has all credential stored in it at the time of creation and using
-    // its pre-defined function sendMial to send the mail.
+    // it has pre-defined function sendMial to send the mail.
     nodeMialer.transporter.sendMail({
         from : 'puru.bahrgava011@gmail.com' , 
         to : userEmail , 

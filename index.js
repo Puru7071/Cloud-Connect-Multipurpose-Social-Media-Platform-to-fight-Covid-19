@@ -32,8 +32,10 @@ const googleOAuth = require("./config/passport-google-OAuth") ;
 // for making use of SASS. 
 const sassMiddleware = require("node-sass-middleware") ; 
 
+//We will require the flash module to send notification to user.
 const flash = require("connect-flash") ; 
- 
+
+// this used to for setting flash values in the session cookie.
 const myMware = require("./config/middleware") ; 
  
 // Use this to fire the express.
@@ -108,10 +110,14 @@ app.use(session({
 app.use(passport.initialize()) ; 
 app.use(passport.session()) ; 
 
-//
+// to set the user making the request to set in the response.locals
 app.use(passport.setAuthenticatedUser) ; 
 
+
+// intiating the flash.
 app.use(flash()) ; 
+// then setting the value of request value of flash for sometime in the response after 
+// that it will automatically get deleted.
 app.use(myMware.setFlash) ; 
 
 // if the path of the request is as follow for the below 2 lines then 

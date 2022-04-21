@@ -183,6 +183,7 @@ html::-webkit-scrollbar-track {
   display: none; }
   .create-post-form label, .add-about-yourself-form label {
     margin-left: 4px;
+    margin-top: -5px;
     color: black;
     font-family: monospace;
     font-size: 1.02rem; }
@@ -190,35 +191,18 @@ html::-webkit-scrollbar-track {
       position: relative;
       top: 5px; }
   .create-post-form input, .create-post-form textarea, .add-about-yourself-form input, .add-about-yourself-form textarea {
-    margin-left: 10px;
-    margin-top: 5px;
-    background-color: transparent;
-    border: none;
-    border-bottom: 4px solid #ccdad1;
-    outline: none;
-    border-radius: 10px;
-    height: 40px;
-    width: 95%;
     color: white;
     font-size: 1.4rem;
     font-family: monospace;
     font-weight: 900; }
-    .create-post-form input::-webkit-input-placeholder, .create-post-form textarea::-webkit-input-placeholder, .add-about-yourself-form input::-webkit-input-placeholder, .add-about-yourself-form textarea::-webkit-input-placeholder {
-      color: white;
-      font-size: 1.4rem;
-      font-family: monospace;
-      font-weight: 900; }
-    .create-post-form input:focus, .create-post-form textarea:focus, .add-about-yourself-form input:focus, .add-about-yourself-form textarea:focus {
-      color: white;
-      font-size: 1.4rem;
-      font-family: monospace;
-      font-weight: 900;
-      background-color: #014f86; }
   .create-post-form textarea, .add-about-yourself-form textarea {
     height: 100px; }
   .create-post-form button, .add-about-yourself-form button {
     margin-left: 20px;
     margin-top: 20px; }
+
+.emoji-also-there {
+  width: 98% !important; }
 
 .adjust-change {
   position: relative;
