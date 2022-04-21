@@ -73,6 +73,7 @@ module.exports.showProfile = async function(request , response){
         
         console.log("showing posts") ; 
         console.log(posts) ; 
+        
 
         posts.reverse() ; // reversing the post array so as to get most recent post at the top.
         let user = await users.findById(request.params.id) ; // then finding the targeted user of which profile is

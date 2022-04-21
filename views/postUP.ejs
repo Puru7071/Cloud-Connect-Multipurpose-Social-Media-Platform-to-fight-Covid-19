@@ -40,10 +40,19 @@
                         </div>
                     </div>
                     <div class="post-buttons">
-                        <div>
-                            <i class="far fa-thumbs-up fa-2x"></i>
-                            <font>69M</font>
-                        </div>
+                        <a href="/posts/toggle-like-post/<%= post.id%>" style="color: white">
+                            <%for(let i = 0 ; i <= post.likes.length ; i += 1){%>
+                                <%if(i == post.likes.length){%>
+                                    <i class="far fa-thumbs-up fa-2x"></i>
+                                    <%break ;%>
+                                <%}%>
+                                <%if(locals.user.id == post.likes[i]){%>
+                                    <i class="fas fa-thumbs-up fa-2x"></i>
+                                    <%break ;%>
+                                <%}%>
+                            <%}%>
+                            <font><%= post.likes.length%> </font>
+                        </a>
                         <div>
                             <i class="far fa-thumbs-down fa-2x"></i>
                             <font>69</font>

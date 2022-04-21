@@ -11,4 +11,5 @@ router.post("/create-post",passport.checkAuthentication , postController.createP
 router.get("/delete-post/:id" , passport.checkAuthentication, postController.deletePost) ; 
 router.post("/create-comments" , passport.checkAuthentication , postController.createComment)
 router.get("/delete-comment/:id" , passport.checkAuthentication , postController.deleteComment) ; 
+router.get("/toggle-like-post/:id" , passport.checkAuthentication , postController.togglelike) ; 
 module.exports = router ; 

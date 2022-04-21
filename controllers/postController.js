@@ -28,7 +28,8 @@ module.exports.createPost =  function(request , response){
                 user : request.user._id,
                 title : request.body.title , 
                 postDescription : request.body.postDescription, 
-                postImages: [] 
+                postImages: [] , 
+                likes : []
             }) ;  
             console.log(request.files) ;
             console.log(post.postImages) ; 
@@ -180,4 +181,24 @@ module.exports.deleteComment = function(request , response){
             return response.redirect("sign-up") ; 
         }
     }) ;
+}
+module.exports.togglelike = async function(request , response){
+    const post =  await posts.findById(request.params.id) ; 
+    let isLiked = false ; 
+    let index = 0 ; 
+    for(let like of post.likes){
+        if(like == request.user.id){
+            isLiked = true ;
+            break ; 
+        }
+        index += 1 
+    }
+    if(isLiked){
+        post.likes.splice(index , 1) ; 
+    }else{
+        post.likes.push(request.user._id) ; 
+    }
+    post.save() ; 
+
+    return response.redirect("back") ; 
 }
