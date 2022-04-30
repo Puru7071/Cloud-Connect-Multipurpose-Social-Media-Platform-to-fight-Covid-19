@@ -53,10 +53,19 @@
                             <%}%>
                             <font><%= post.likes.length%> </font>
                         </a>
-                        <div>
-                            <i class="far fa-thumbs-down fa-2x"></i>
-                            <font>69</font>
-                        </div>
+                        <a href="/posts/toggle-dislike-post/<%= post.id%>" style="color: white;">
+                            <%for(let i = 0 ; i <= post.dislikes.length ; i += 1){%>
+                                <%if(i == post.dislikes.length){%>
+                                    <i class="far fa-thumbs-down fa-2x"></i>
+                                    <%break ;%>
+                                <%}%>
+                                <%if(locals.user.id == post.dislikes[i]){%>
+                                    <i class="fas fa-thumbs-down fa-2x"></i>
+                                    <%break ;%>
+                                <%}%>
+                            <%}%>
+                            <font><%= post.dislikes.length%> </font>
+                        </a>
                         <div class="view-comment-section">
                             <i class="far fa-comment-alt fa-2x"></i>
                             <font><%= post.comments.length%></font>

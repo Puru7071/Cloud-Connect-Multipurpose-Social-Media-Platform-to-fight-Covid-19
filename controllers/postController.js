@@ -186,6 +186,14 @@ module.exports.togglelike = async function(request , response){
     const post =  await posts.findById(request.params.id) ; 
     let isLiked = false ; 
     let index = 0 ; 
+    for(let dislike of post.dislikes){
+        if(dislike == request.user.id){
+            post.dislikes.splice(index , 1) ;
+            break ; 
+        }
+        index += 1 ; 
+    }
+    index = 0 ; 
     for(let like of post.likes){
         if(like == request.user.id){
             isLiked = true ;
@@ -197,6 +205,34 @@ module.exports.togglelike = async function(request , response){
         post.likes.splice(index , 1) ; 
     }else{
         post.likes.push(request.user._id) ; 
+    }
+    post.save() ; 
+
+    return response.redirect("back") ; 
+}
+module.exports.toggledislike = async function(request , response){
+    const post =  await posts.findById(request.params.id) ; 
+    let isdisLiked = false ; 
+    let index = 0 ; 
+    for(let like of post.likes){
+        if(like == request.user.id){
+            post.likes.splice(index , 1) ;
+            break ; 
+        }
+        index += 1 ; 
+    }
+    index = 0 ; 
+    for(let dislikes of post.dislikes){
+        if(dislikes == request.user.id){
+            isdisLiked = true ;
+            break ; 
+        }
+        index += 1 
+    }
+    if(isdisLiked){
+        post.dislikes.splice(index , 1) ; 
+    }else{
+        post.dislikes.push(request.user._id) ; 
     }
     post.save() ; 
 

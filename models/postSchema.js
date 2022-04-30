@@ -36,6 +36,12 @@ const postSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId , 
             ref: "users"
         }
+    ] , 
+    dislikes : [
+        {
+            type: mongoose.Schema.Types.ObjectId , 
+            ref: "users"
+        }
     ]
 } , {
     timestamps : true 
