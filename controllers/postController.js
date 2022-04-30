@@ -44,15 +44,14 @@ module.exports.createPost =  function(request , response){
             // Now making the change permanent not jsut storing them in the RAM.
             post.save() ; 
             request.flash("success" , "Successfully Created Post") ;
-            // if(request.xhr){
-            //     return response.status(200).json({
-            //         data:{
-            //             post : post
-            //         } , 
-            //         message : "Post Created Successfully!"
-            //     })
-            // }
-            return response.redirect("back") ; 
+            if(request.xhr){
+                return response.status(200).json({
+                    data:{
+                        post : post
+                    } , 
+                    message : "Post Created Successfully!"
+                })
+            } 
         }) ; 
 
     }catch(error){

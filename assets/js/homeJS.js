@@ -1,4 +1,6 @@
 (function () {
+    "use strict" 
+    
     console.log("Script Loaded");
 
     var commentSection = document.getElementsByClassName("view-comment-section");

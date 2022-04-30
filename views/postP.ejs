@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div class="post-buttons">
-                    <a href="/posts/toggle-like-post/<%= post.id%>" style="color: white">
+                    <a href="/posts/toggle-like-post/<%= post.id%>" style="color: white" class="like">
                         <%for(let i = 0 ; i <= post.likes.length ; i += 1){%>
                             <%if(i == post.likes.length){%>
                                 <i class="far fa-thumbs-up fa-2x"></i>
@@ -60,7 +60,7 @@
                         <%}%>
                         <font><%= post.likes.length%> </font>
                     </a>
-                    <a href="/posts/toggle-dislike-post/<%= post.id%>" style="color: white">
+                    <a href="/posts/toggle-dislike-post/<%= post.id%>" style="color: white" class="dislike">
                         <%for(let i = 0 ; i <= post.dislikes.length ; i += 1){%>
                             <%if(i == post.dislikes.length){%>
                                 <i class="far fa-thumbs-down fa-2x"></i>
