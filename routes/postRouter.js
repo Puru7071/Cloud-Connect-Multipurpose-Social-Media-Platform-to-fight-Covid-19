@@ -13,4 +13,6 @@ router.post("/create-comments" , passport.checkAuthentication , postController.c
 router.get("/delete-comment/:id" , passport.checkAuthentication , postController.deleteComment) ; 
 router.get("/toggle-like-post/:id" , passport.checkAuthentication , postController.togglelike) ; 
 router.get("/toggle-dislike-post/:id" , passport.checkAuthentication , postController.toggledislike) ; 
+router.get("/report-post/:id" , passport.checkAuthentication , postController.reportPost) ; 
+
 module.exports = router ; 

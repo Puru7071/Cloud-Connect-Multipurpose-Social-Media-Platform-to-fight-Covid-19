@@ -26,7 +26,10 @@ const userSchema = mongoose.Schema({
     } , 
     avatar: {
         type : String 
-    } 
+    } , 
+    postBlocked: {
+        type: Number 
+    }
 } , {
     timestamps : true 
 }) ; 

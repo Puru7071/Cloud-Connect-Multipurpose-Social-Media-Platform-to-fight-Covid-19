@@ -18,6 +18,11 @@
                         <%}%>
                         <%= post.user.name%>
                     </a>
+                    <% if(!(locals.user && locals.user.id == post.user.id)){%>
+                        <a class="report-button" href="/posts/report-post/<%= post._id%>">
+                            <i class="fad fa-flag"></i>
+                        </a>
+                    <%}%>
                 </div>
             <%}%>
 

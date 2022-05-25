@@ -2,6 +2,7 @@
 const users = require("../models/userInfoSchema") ; 
 const post = require("../models/postSchema") ; 
 const comments = require("../models/commentSchema") ; 
+const blockedUsers = require("../models/blockedSchema") ; 
 const { populate } = require("../models/userInfoSchema");
 
 // these are the required modules for the controller file to work.
@@ -13,6 +14,20 @@ const fs = require("fs") ;
 module.exports.createNewUser = function(request , response){
     // First of checking the confirm password and passord should match if not then give notifiaction to user
     // via Noty 
+    blockedUsers.findOne({email : request.body.email} , function(error , bUser){
+        if(error){
+            //if error then give notification via Noty.
+            console.log(`Something went wrong: ${error}`) ;
+            request.flash("error" , "Something went wrong.")  ; 
+            return response.redirect("back") ; // and going back.
+        }
+        if(bUser){
+            console.error("Email entered is banned.") ; 
+            request.flash("error" , "Email entered is banned.") ; 
+            return response.redirect("/sign-in") ;
+        }
+    }) ;
+    
     if(request.body.password != request.body.CPassword){
         console.error("Password entered not same.") ; 
         request.flash("error" , "Password entered not same.")
@@ -40,7 +55,8 @@ module.exports.createNewUser = function(request , response){
                 email : request.body.email , 
                 name : request.body.name , 
                 password : request.body.password , 
-                personlInfo : request.body.Bio
+                personlInfo : request.body.Bio , 
+                postBlocked : 0 
             } , function(error , newUser){
                 if(error){
                     //if error then give notification via Noty.
@@ -87,7 +103,7 @@ module.exports.showProfile = async function(request , response){
         console.log(user) ; 
         allComments.reverse() ; // reversing the comments array so as to get most recent post at the top.
         return response.render("userProfile" , {
-            layout : "userProfile.ejs" ,
+            layout : "userProfile.ejs" , 
             posts : posts , 
             isHome : false ,
             targetUser : user , 

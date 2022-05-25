@@ -3,6 +3,9 @@
 
 const express = require("express") ; 
 
+const env = require("./config/enviroment") ; 
+
+
 // layouts basically help making ejs files generalized that has some changes and 
 // those changes can be embedded with use of <%- body %> where we need insert the changes
 // (change are also ejs files).This help in distributing code when the code base 
@@ -85,7 +88,7 @@ app.set("layout extractStyles" , true) ;
 app.use(cookieParser()) ; 
 
 // this tells the path of files like CSS, JS, Images, Fonts required by the views.
-app.use(express.static(path.join(__dirname , "assets"))) ; 
+app.use(express.static(path.join(__dirname , env.access_path))) ; 
 
 // this middleware converts the request from string to JSON. 
 app.use(express.urlencoded()) ; 
@@ -96,13 +99,13 @@ app.use(express.urlencoded()) ;
 app.use(session({
     name : "CloudConnect" , 
     resave : false , 
-    secret : "This is serious." , 
+    secret : env.session_cookie_key , 
     saveUninitialized : false , 
     cookie : {
         maxAge : (1000 * 120 * 60 ) 
     },
     store: Mongostore.create({
-                 mongoUrl: 'mongodb://localhost/SocialMediaDatabase'
+                 mongoUrl: env.db 
         })
 })) ; 
 

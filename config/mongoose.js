@@ -1,8 +1,10 @@
+const env = require("../config/enviroment") ; 
+
 // Configuring the databases of the website.
 // First we need to require the mongoose module.
 const mongoose = require("mongoose") ; 
 // locating the database of the website.
-mongoose.connect("mongodb://localhost/SocialMediaDatabase") ; 
+mongoose.connect(env.db) ; 
 
 const db = mongoose.connection ; 
 

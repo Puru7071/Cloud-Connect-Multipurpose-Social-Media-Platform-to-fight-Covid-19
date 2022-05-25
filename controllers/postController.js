@@ -2,6 +2,7 @@
 const posts = require("../models/postSchema") ; 
 const comments = require("../models/commentSchema") ; 
 const User = require("../models/userInfoSchema") ; 
+const blockedUsers = require("../models/blockedSchema") ; 
 
 // Below two are the required module for controller function to execute.
 const req = require("express/lib/request");
@@ -10,6 +11,7 @@ const { post } = require("../routes/postRouter");
 const path = require("path") ; 
 const fs = require("fs") ;
 const commentsMialer = require("../mailer/commentMailer") ; 
+const { redirect } = require("express/lib/response");
 
 
 // controller function to create post.
@@ -29,7 +31,8 @@ module.exports.createPost =  function(request , response){
                 title : request.body.title , 
                 postDescription : request.body.postDescription, 
                 postImages: [] , 
-                likes : []
+                likes : [] , 
+                reports : 0 
             }) ;  
             console.log(request.files) ;
             console.log(post.postImages) ; 
@@ -44,14 +47,15 @@ module.exports.createPost =  function(request , response){
             // Now making the change permanent not jsut storing them in the RAM.
             post.save() ; 
             request.flash("success" , "Successfully Created Post") ;
-            if(request.xhr){
-                return response.status(200).json({
-                    data:{
-                        post : post
-                    } , 
-                    message : "Post Created Successfully!"
-                })
-            } 
+            // if(request.xhr){
+            //     return response.status(200).json({
+            //         data:{
+            //             post : post
+            //         } , 
+            //         message : "Post Created Successfully!"
+            //     })
+            // } 
+            return response.redirect("back") ; 
         }) ; 
 
     }catch(error){
@@ -63,6 +67,7 @@ module.exports.createPost =  function(request , response){
 // Delete post controller function.
 module.exports.deletePost =  async function(request , response){
    try{
+       console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5555555") ; 
     //    finding post that is being targetted.
         let post = await posts.findById(request.params.id); 
         //This is way to convert the object type into string request.user.id
@@ -101,7 +106,23 @@ module.exports.deletePost =  async function(request , response){
    }
 }
 
-
+async function delReportedPost(request , response){
+    let post = await posts.findById(request.params.id); 
+    
+    console.log(request.user._id , "+++++++++++++" , request.user.id) ; 
+       
+        
+    for(let pth of post.postImages) {
+        fs.unlinkSync(path.join(__dirname , ".." , pth)) ;
+    }
+    
+    post.remove() ; 
+    
+    comments.deleteMany({post : request.params.id} , function(error){
+        console.log(`Sucessfully Deletion of Post Done.`) ; 
+    }); 
+            
+}
 //Create Comment controller function.
 module.exports.createComment = async function(request , response){
     try{
@@ -235,5 +256,40 @@ module.exports.toggledislike = async function(request , response){
     }
     post.save() ; 
 
+    return response.redirect("back") ; 
+}
+
+module.exports.reportPost = async function(request,response){
+    const post =  await posts.findById(request.params.id) ; 
+    const user = await User.findById(post.user) ; 
+    
+    for(let report of post.reports){
+        if(report == request.user.id){
+            request.flash("error" , "Post Already Reported !!") ; 
+            return response.redirect("back") ; 
+        }
+    }
+    post.reports.push(request.user._id) ; 
+    request.flash("success" , "Post Reported Successfully!!") ; 
+    post.save() ; 
+
+    if(post.reports.length > 100){
+        delReportedPost(request , response) ; 
+        user.postBlocked += 1 ; 
+        if(user.postBlocked >= 3){
+            blockedUsers.create({
+                email : user.email
+            } , function(error , buser){
+                if(error){
+                    console.error("Somthing went wrong: " + error) ; 
+                    return response.redirect("back") ; 
+                }
+                console.log("$$$$$$$$$$$$$$$$$$$$$$$$$Report Successful$$$$$$$$$$$$$$$$$$$$$$$$$$") ; 
+            }) ; 
+            user.save() ; 
+        }
+        return response.redirect("back") ; 
+    }
+    
     return response.redirect("back") ; 
 }

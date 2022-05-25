@@ -6,7 +6,8 @@ const LocalStrategy = require("passport-local") ;
 // this the passport statergy that we are goiing to use for authentication of the logged in user.
 
 // we need to require the User document that is actually a array of Users with their infos.
-const Users = require("../models/userInfoSchema") ; 
+const Users = require("../models/userInfoSchema") ;
+const blockedUsers = require("../models/blockedSchema")  ; 
 
 
 //  telling the passport that we are going to use this Strategy with the following properties.
@@ -19,6 +20,18 @@ passport.use(new LocalStrategy({
 
     function(req, email , password , done){
         // finding the user with the given email id. 
+        blockedUsers.findOne({email : email}, function(error , bUser){
+            if(error){
+                // incase of some error we notification to the user via Noty.
+                req.flash("error","Something went wrong.") ; 
+                return done(error) ; // giving done function error.
+            }
+            if(bUser){
+                console.error("Email entered is banned.") ; 
+                req.flash("error" , "Email entered is banned.") ; 
+                return done(null , false) ; 
+            }
+        }) ;
         Users.findOne({email : email} , function(error , user){
             if(error){
                 // incase of some error we notification to the user via Noty.
