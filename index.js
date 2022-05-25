@@ -133,7 +133,7 @@ app.use("/uploads/users/posts" ,express.static(__dirname + "/uploads/users/posts
 app.use("/" , require("./routes/homePageRouter")) ; 
 
 // telling the server to work on the port given incase o error there is callback fn to deal with it.
-app.listen(port , function(error){
+app.listen(process.env.PORT || port , function(error){
     if(error){
         console.error(`Server was not able to start due to: ${error}`) ; 
         return ; 
