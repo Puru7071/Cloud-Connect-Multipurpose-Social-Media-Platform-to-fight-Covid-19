@@ -15,7 +15,7 @@ const development = {
     } , 
     google_client_id : "863742172650-oq620v30cuptg9677mifs534f7dgpoic.apps.googleusercontent.com" , 
     google_client_secret : "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" , 
-    google_call_back_url : "http://localhost:7777/users/auth/google/callback" 
+    google_call_back_url : "https://quiet-hamlet-36153.herokuapp.com/users/auth/google/callback" 
 }
 
 module.exports = development ; 
