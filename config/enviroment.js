@@ -2,7 +2,7 @@ const development = {
     name : "Development" , 
     access_path : "/assets" , 
     session_cookie_key : "This is serious." , 
-    db : "mongodb://localhost/SocialMediaDatabase" , 
+    db : "mongodb+srv://PuruBhargava:Blacky%401234@cloudconnect.vmvqour.mongodb.net/?retryWrites=true&w=majority" , 
     smtp : {
         service : 'gmail' , 
         host : 'smtp.gmail.com' , 
