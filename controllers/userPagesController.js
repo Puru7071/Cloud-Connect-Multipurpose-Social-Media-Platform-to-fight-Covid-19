@@ -225,6 +225,7 @@ module.exports.showWmap = function(request , response){
 // rendering the Show Latest News page.
 module.exports.showLnews = function(request , response){
     return response.render("showLNews" , {
-        layout : "showLnews.ejs" 
+        layout : "showLnews.ejs" , 
+        nothing: "true"
     }) ; 
 }
