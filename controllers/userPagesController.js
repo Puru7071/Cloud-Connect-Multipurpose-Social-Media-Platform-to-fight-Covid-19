@@ -56,7 +56,8 @@ module.exports.createNewUser = function(request , response){
                 name : request.body.name , 
                 password : request.body.password , 
                 personlInfo : request.body.Bio , 
-                postBlocked : 0 
+                postBlocked : 0  , 
+                avatar : null 
             } , function(error , newUser){
                 if(error){
                     //if error then give notification via Noty.
@@ -150,9 +151,11 @@ module.exports.addBio = async function(request , response){
         // finding the user via user id passed on through params.
         let user = await users.findById(request.params.id)  ; 
         // using the multer function defined in the schema.
+        
         users.uploadedAvatar(request , response , function(error){
             if(error){
                 // if error then give notification via multer.
+                console.error(`Something went wrong: ${error}`) ; 
                 request.flash("error" , "Something went wrong") ; 
                 return response.redirect("back") ; 
             }
@@ -163,12 +166,10 @@ module.exports.addBio = async function(request , response){
             }
             if(request.file){
                 // If there is avatar file  then we need to update or set avatar file
-                if(user.avatar){
-                    // if file already there then we need to delete the current avatar file.
-                    fs.unlinkSync(path.join(__dirname , ".." , user.avatar)) ; 
-                }
+                console.log(`$$$$$$$$$$$$$$ ${request.file} @@@@@@@@@@@@@@@222`) ; 
+                
                 // now setting the avatar's path in the avatar of the user
-                user.avatar = users.avatarPath + "/" + request.file.filename; 
+                user.avatar =  request.file.location; 
                 console.log(request.file) ; 
                 
                 request.flash("success" , "Bio Updated Successfully") ; 
