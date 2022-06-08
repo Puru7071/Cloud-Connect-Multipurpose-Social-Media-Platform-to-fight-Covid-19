@@ -11,7 +11,7 @@
                     <a href="/users/profile/<%= post.user._id%>">
                         <%if(post.user.avatar){%>
                             <div class="profile-pic-container">
-                                <img src="/<%= post.user.avatar%>" alt="<%= post.user.name%>" height="100%" width="100%"> 
+                                <img src="<%= post.user.avatar%>" alt="<%= post.user.name%>" height="100%" width="100%"> 
                             </div>
                         <%}else{%>
                             <i class="fas fa-user-circle"></i>&nbsp; 
@@ -38,7 +38,7 @@
                             <!-- <i class="fas fa-caret-circle-left fa-2x slide-image-left"></i>
                             <i class="fas fa-caret-circle-right fa-2x slide-image-right" ></i> -->
                             <%for(image of post.postImages){%>
-                                <img src="/<%=image%>" height="100%" width="100%" class="image-screen" >
+                                <img src="<%=image%>" height="100%" width="100%" class="image-screen" >
                             <%}%>
                         </div> 
                     <%}%>

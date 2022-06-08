@@ -32,7 +32,8 @@ module.exports.createPost =  function(request , response){
                 postDescription : request.body.postDescription, 
                 postImages: [] , 
                 likes : [] , 
-                reports : 0 
+                dislikes : [],
+                reports : []
             }) ;  
             console.log(request.files) ;
             console.log(post.postImages) ; 
@@ -41,7 +42,8 @@ module.exports.createPost =  function(request , response){
             if(request.files){
                 // If there is post images then we will one by one store there path in the postImages array.
                 for(let fle of request.files) {
-                    post.postImages.push(posts.imagesPath + "/" + fle.filename) ; 
+                    post.postImages.push(fle.location) ; 
+                    console.log(fle) ; 
                 }
             }
             // Now making the change permanent not jsut storing them in the RAM.
@@ -76,9 +78,9 @@ module.exports.deletePost =  async function(request , response){
         // if user making the request and user who made the post is same then we delete the post.
         if(request.user.id == post.user){
             // deleting all the post images by traversing the array.
-            for(let pth of post.postImages) {
-                fs.unlinkSync(path.join(__dirname , ".." , pth)) ;
-            }
+            // for(let pth of post.postImages) {
+            //     fs.unlinkSync(path.join(__dirname , ".." , pth)) ;
+            // }
         // Then removing the post from the document of post
             post.remove() ; 
         // then atlast removing all the comments made on that particular post by finding them with postId

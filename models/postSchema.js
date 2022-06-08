@@ -1,6 +1,8 @@
 const mongoose = require("mongoose") ; 
 // we will require multer module to store the upload
+const aws = require("aws-sdk") ; 
 const multer = require("multer") ; 
+const multerS3 = require("multer-s3-v3") ; 
 const path = require("path") ; 
 const POST_PATH = path.join('uploads/users/posts') ; 
 
@@ -53,17 +55,23 @@ const postSchema = new mongoose.Schema({
     timestamps : true 
 }) ; 
 
+const s3 = new aws.S3({
+    accessKeyId: "AKIAVTUGPCPAA54BN27X" , 
+    secretAccessKey: "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" , 
+    region :  "us-east-2"
+}) ; 
 
 // Now telling the multer about the where is the storage and what is the name of the file storage. 
-let storage2 = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, path.join(__dirname , ".." , POST_PATH)) ; 
+const storage2=  multerS3({
+    s3,
+    bucket: 'cloudconnectimages',
+    metadata: function (req, file, cb) {
+      cb(null, {fieldName: `${file.fieldname}`});
     },
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      cb(null, file.fieldname + '-' + uniqueSuffix)
+    key: function (req, file, cb) {
+      cb(null, `image-${Date.now()}.jpeg`) ; 
     }
-}) ;
+  }) 
 
 //setting a function named uploadedPostImages in the statics property of the postSchema that is taken care 
 // by the multer we just need to tell that tell it the storage and it takes array of inputs.

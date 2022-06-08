@@ -20,7 +20,7 @@ const cookieParser = require("cookie-parser") ;
 const path = require("path") ;
 
 // Defining the port on which the website would run.
-const port = 7771 ; 
+const port = 7777 ; 
 
 // this encryptes the session cookies.
 const session = require("express-session") ;
