@@ -238,7 +238,8 @@ body {
 
 @media screen and (max-width : 920px){
     body{
-        background: url("https://images.pexels.com/photos/925743/pexels-photo-925743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+        background: url("./back2.png") ; 
+        background-size: contain;
     }
     #image-container {
         display: none;
@@ -249,8 +250,31 @@ body {
         margin-top: -2vh;
       } 
     #form-container {        
-        width: 60%;
-        margin: auto ;
+        width: 70%;
+        background-color: #669bbc;     
+        opacity: 0.95; 
+        box-shadow: 0px 0px 30px 00px black;
+    }
+    #cloud-connect-logo {
+        color: white;
+    }
+    #cloud-connect-name {
+        top: -15px;
+        color: white;
+    }
+    #Web-message {
+        position: relative;
+        color: black;
+        top: -1vh;
+    }
+    #sign-in-question {
+        color: #f5cb5c;
+    }
+    #who-are-u a {
+        color: #f5cb5c;
+    }
+    #copy-right {
+        color: white ;
     }
 }
 @media screen and (max-width : 765px){
@@ -275,7 +299,6 @@ body {
 }
 @media screen and (max-width: 420px){
     body {
-        background-color: red;
         background: url("./back2.png") ; 
         background-size: contain;
     }
@@ -316,7 +339,6 @@ body {
         color: #f5cb5c;
     }
     #who-are-u a {
-        
         color: #f5cb5c;
     }
     #sign-in-form input {
