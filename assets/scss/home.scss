@@ -274,13 +274,17 @@ body {
     }
 }
 @media screen and (max-width: 420px){
-    // body {
-    //     background-color: black;
-    // }
+    body {
+        background: url("https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")
+    }
     #container {
         left: -1.1vw;
         margin-top: -1vh;
+        
     } 
+    #form-container {        
+        box-shadow: 0px 0px 30px 00px black;
+    }
     #cloud-connect-logo {
         font-size: 3rem;
     }
