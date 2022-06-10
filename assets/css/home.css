@@ -231,3 +231,38 @@ body {
 @media screen and (max-width: 545px) {
   #form-container {
     width: 90%; } }
+
+@media screen and (max-width: 420px) {
+  body {
+    background: url("https://images.pexels.com/photos/3601244/pexels-photo-3601244.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"); }
+  #container {
+    left: -1.1vw;
+    margin-top: -1vh; }
+  #cloud-connect-logo {
+    font-size: 3rem; }
+  #cloud-connect-name {
+    top: -15px;
+    font-size: 0.5rem; }
+  #Web-message {
+    font-size: 0.8rem;
+    position: relative;
+    top: -1vh; }
+  #sign-in-heading {
+    font-size: 1.5rem; }
+  #sign-in-form {
+    left: -3%;
+    top: 40px; }
+  #sign-in-question {
+    font-size: 0.6rem; }
+  #sign-in-form input {
+    width: 85%;
+    font-size: 1rem; }
+  #btn-log-in {
+    font-size: 0.9rem;
+    width: 120px;
+    height: 40px; }
+  #copy-right {
+    bottom: 0px;
+    font-size: 0.7rem; }
+    #copy-right span {
+      font-size: 0.9rem; } }
