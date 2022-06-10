@@ -166,9 +166,6 @@ body {
   position: relative;
   top: -50px; }
 
-.reduce-wdith-for-see-password {
-  width: 75% !important; }
-
 .show-password-button {
   cursor: pointer;
   color: #46494c;
@@ -197,3 +194,40 @@ body {
 .report-button {
   position: absolute;
   right: 10px; }
+
+@media screen and (max-width: 1100px) {
+  #container {
+    width: 100vw; }
+  #form-container {
+    width: 45%; }
+  #image-container {
+    width: 50%; } }
+
+@media screen and (max-width: 920px) {
+  body {
+    background: url("https://images.pexels.com/photos/925743/pexels-photo-925743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"); }
+  #image-container {
+    display: none; }
+  #container {
+    position: relative;
+    left: 1.1vw;
+    margin-top: -2vh; }
+  #form-container {
+    width: 60%;
+    margin: auto; } }
+
+@media screen and (max-width: 765px) {
+  #form-container {
+    width: 70%; } }
+
+@media screen and (max-width: 660px) {
+  #form-container {
+    width: 80%; } }
+
+@media screen and (max-width: 575px) {
+  #form-container {
+    width: 85%; } }
+
+@media screen and (max-width: 545px) {
+  #form-container {
+    width: 90%; } }
