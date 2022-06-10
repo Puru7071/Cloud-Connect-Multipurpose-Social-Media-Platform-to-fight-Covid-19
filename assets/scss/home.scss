@@ -275,10 +275,9 @@ body {
 }
 @media screen and (max-width: 420px){
     body {
-        background: url("./Back2.png") ; 
+        background-color: red;
+        background: url("./back2.png") ; 
         background-size: contain;
-        
-        
     }
     #container {
         left: -1.1vw;
