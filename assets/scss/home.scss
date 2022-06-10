@@ -275,7 +275,7 @@ body {
 }
 @media screen and (max-width: 420px){
     body {
-        background: url("https://cdn.dribbble.com/users/1363686/screenshots/10897521/media/e2fce1dd0c1ed91b4d51583226ff9792.jpg?compress=1&resize=1200x900&vertical=top") ; 
+        background: url("./Back2.png") ; 
         background-size: contain;
         
         
@@ -285,20 +285,24 @@ body {
         margin-top: -1vh;
         
     } 
-    #form-container {        
-        
+    #form-container {   
+        background-color: #669bbc;     
+        opacity: 0.95; 
         box-shadow: 0px 0px 30px 00px black;
     }
     #cloud-connect-logo {
+        color: white;
         font-size: 3rem;
     }
     #cloud-connect-name {
         top: -15px;
         font-size: 0.5rem;
+        color: white;
     }
     #Web-message {
         font-size: 0.9rem;
         position: relative;
+        color: black;
         top: -1vh;
     }
     #sign-in-heading {
@@ -309,7 +313,12 @@ body {
         top: 40px;
     }
     #sign-in-question {
-        font-size: 0.6rem;
+        font-size: 0.7rem;
+        color: #f5cb5c;
+    }
+    #who-are-u a {
+        
+        color: #f5cb5c;
     }
     #sign-in-form input {
         width: 85%;
@@ -323,6 +332,7 @@ body {
     #copy-right {
         bottom: 0px;
         font-size: 0.7rem;
+        color: white;
         span{
             font-size: 0.9rem ; 
         }
