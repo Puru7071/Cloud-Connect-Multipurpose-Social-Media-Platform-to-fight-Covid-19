@@ -234,7 +234,7 @@ body {
 
 @media screen and (max-width: 420px) {
   body {
-    background: url("https://images.pexels.com/photos/3601244/pexels-photo-3601244.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"); }
+    background-color: black; }
   #container {
     left: -1.1vw;
     margin-top: -1vh; }
