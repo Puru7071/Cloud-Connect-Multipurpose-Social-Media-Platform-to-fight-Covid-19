@@ -233,8 +233,6 @@ body {
     width: 90%; } }
 
 @media screen and (max-width: 420px) {
-  body {
-    background-color: black; }
   #container {
     left: -1.1vw;
     margin-top: -1vh; }
@@ -244,7 +242,7 @@ body {
     top: -15px;
     font-size: 0.5rem; }
   #Web-message {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     position: relative;
     top: -1vh; }
   #sign-in-heading {
@@ -265,4 +263,6 @@ body {
     bottom: 0px;
     font-size: 0.7rem; }
     #copy-right span {
-      font-size: 0.9rem; } }
+      font-size: 0.9rem; }
+  .welcome-heading {
+    font-size: 0.7rem; } }
