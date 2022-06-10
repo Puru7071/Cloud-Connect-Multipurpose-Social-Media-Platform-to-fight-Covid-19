@@ -275,7 +275,8 @@ body {
 }
 @media screen and (max-width: 420px){
     body {
-        background: url("https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")
+        background: url("https://images.pexels.com/photos/6485507/pexels-photo-6485507.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2") ; 
+        background-size: contain;
     }
     #container {
         left: -1.1vw;
@@ -283,6 +284,7 @@ body {
         
     } 
     #form-container {        
+        opacity: 0.8;
         box-shadow: 0px 0px 30px 00px black;
     }
     #cloud-connect-logo {
