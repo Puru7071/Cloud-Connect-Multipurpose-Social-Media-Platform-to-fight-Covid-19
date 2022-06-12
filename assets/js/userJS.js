@@ -139,6 +139,154 @@
         });
     }
 
+    $(".delete-button").click(function(event){
+        console.log("hello") ; 
+        event.preventDefault() ; 
+        let parent = $(event.target).parent()
+        $.ajax({
+            type : "get" ,
+            url : $(parent).prop('href'),  
+            success : function(data){
+                
+                $(`#post-${data.data.postId}`).remove() ; 
+
+                new Noty({
+                    theme: 'semanticui' , 
+                    text: "Post Deleted Successfully !!!" , 
+                    type : "success" , 
+                    layout : "topRight" , 
+                    timeout : 1500 
+                }).show() 
+            } , 
+            error : function(error){
+                console.log(error.responseText) ; 
+
+                new Noty({
+                    theme: 'semanticui' , 
+                    text: `Something went wrong !!!` , 
+                    type : "error" , 
+                    layout : "topRight" , 
+                    timeout : 1500 
+                }).show() 
+            }
+        })
+    }) ; 
+
+
+    $(".like").click(function(event){
+        console.log("hello") ; 
+        event.preventDefault() ; 
+        let parent = $(event.target).parent() ; 
+        $.ajax({
+            type : "get" , 
+            url : $(parent).prop('href'), 
+            success : function(data){
+                 
+                if(data.data.isLiked){
+                    $(`#like-${data.data.postId}`).html(`
+                        <i class="far fa-thumbs-up fa-2x"></i>
+                        <font>${data.data.likes}</font>
+                    `) ; 
+
+                    new Noty({
+                        theme: 'semanticui' , 
+                        text: "Unliked Post !!!" , 
+                        type : "success" , 
+                        layout : "topRight" , 
+                        timeout : 1500 
+                    }).show() 
+                }else{
+                    $(`#like-${data.data.postId}`).html(`
+                        <i class="fas fa-thumbs-up fa-2x"></i>
+                        <font>${data.data.likes}</font>
+                    `) ; 
+                    new Noty({
+                        theme: 'semanticui' , 
+                        text: "Liked Post !!!" , 
+                        type : "success" , 
+                        layout : "topRight" , 
+                        timeout : 1500 
+                    }).show() 
+                }
+                if(data.data.wasDisLiked){
+                    $(`#dislike-${data.data.postId}`).html(`
+                        <i class="far fa-thumbs-down fa-2x"></i>
+                        <font>${data.data.dislikes}</font>
+                    `)
+                }
+            } , 
+            error : function(error){
+                console.log(error.responseText) ; 
+
+                new Noty({
+                    theme: 'semanticui' , 
+                    text: `Something went wrong !!!` , 
+                    type : "error" , 
+                    layout : "topRight" , 
+                    timeout : 1500 
+                }).show() 
+            }
+        })
+    }) ; 
+
+
+    $(".dislike").click(function(event){
+        console.log("hello") ; 
+        event.preventDefault() ; 
+        let parent = $(event.target).parent() ; 
+        $.ajax({
+            type : "get" , 
+            url : $(parent).prop('href'), 
+            success : function(data){
+                console.log("hello" , data.data.postId) ; 
+                if(data.data.isdisLiked){
+                    $(`#dislike-${data.data.postId}`).html(`
+                        <i class="far fa-thumbs-down fa-2x"></i>                        
+                        <font>${data.data.dislikes}</font>
+                    `) ;
+                    new Noty({
+                        theme: 'semanticui' , 
+                        text: "Undo Dislike !!!" , 
+                        type : "success" , 
+                        layout : "topRight" , 
+                        timeout : 1500 
+                    }).show() 
+                }else{
+                    $(`#dislike-${data.data.postId}`).html(`
+                        <i class="fas fa-thumbs-down fa-2x"></i>
+                        <font>${data.data.dislikes}</font>
+                    `) ; 
+                    
+                    new Noty({
+                        theme: 'semanticui' , 
+                        text: "Disliked Post !!!" , 
+                        type : "success" , 
+                        layout : "topRight" , 
+                        timeout : 1500 
+                    }).show() 
+                }
+                if(data.data.wasLiked){
+                    $(`#like-${data.data.postId}`).html(`
+                        <i class="far fa-thumbs-up fa-2x"></i>
+                        <font>${data.data.likes}</font>
+                    `)
+                }
+            } , 
+            error : function(error){
+                console.log(error.responseText) ; 
+
+                new Noty({
+                    theme: 'semanticui' , 
+                    text: `Something went wrong !!!` , 
+                    type : "error" , 
+                    layout : "topRight" , 
+                    timeout : 1500 
+                }).show() 
+            }
+        })
+    }) ; 
+
+
     // let newPostForm = $("#create-post");
     // console.log("hello", newPostForm);
 

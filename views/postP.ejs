@@ -5,7 +5,7 @@
         </p>
     <%}%>
     <% for(let post of posts){%>
-        <div class="modify-when-needed">
+        <div class="modify-when-needed" id = "post-<%= post._id%>">
             <%if(isHome == true){%>
                 <div class="user-profile-link">
                     <a href="/users/profile/<%= post.user._id%>">
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="post-buttons">
-                    <a href="/posts/toggle-like-post/<%= post.id%>" style="color: white" class="like">
+                    <a href="/posts/toggle-like-post/<%= post.id%>" style="color: white"  class="like"  id = "like-<%= post._id%>">
                         <%for(let i = 0 ; i <= post.likes.length ; i += 1){%>
                             <%if(i == post.likes.length){%>
                                 <i class="far fa-thumbs-up fa-2x"></i>
@@ -63,9 +63,9 @@
                                 <%break ;%>
                             <%}%>
                         <%}%>
-                        <font><%= post.likes.length%> </font>
+                        <font ><%= post.likes.length%> </font>
                     </a>
-                    <a href="/posts/toggle-dislike-post/<%= post.id%>" style="color: white" class="dislike">
+                    <a href="/posts/toggle-dislike-post/<%= post.id%>" style="color: white" class="dislike"  id = "dislike-<%= post._id%>">
                         <%for(let i = 0 ; i <= post.dislikes.length ; i += 1){%>
                             <%if(i == post.dislikes.length){%>
                                 <i class="far fa-thumbs-down fa-2x"></i>
@@ -84,7 +84,7 @@
                     </div>
     
                     <% if(locals.user && locals.user.id == post.user.id){%>
-                        <a class="delete-button" href="/posts/delete-post/<%= post._id %>" >
+                        <a class="delete-button" href="/posts/delete-post/<%= post._id %>" data-postId="post-<%= post._id%>">
                             <i class="fas fa-trash-alt fa-2x"></i>
                         </a>
                     <%}%>

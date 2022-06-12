@@ -73,7 +73,7 @@ module.exports.deletePost =  async function(request , response){
     //    finding post that is being targetted.
         let post = await posts.findById(request.params.id); 
         //This is way to convert the object type into string request.user.id
-        console.log(request.user._id , "+++++++++++++" , request.user.id) ; 
+        console.log(request.user._id , "+++++++++++++" , request.user.id , "++++++++++" , post.user) ;  
        
         // if user making the request and user who made the post is same then we delete the post.
         if(request.user.id == post.user){
@@ -87,7 +87,15 @@ module.exports.deletePost =  async function(request , response){
             comments.deleteMany({post : request.params.id} , function(error){
                 console.log(`Sucessfully Deletion of Post Done.`) ; 
                 // Giving user message that the successful deletion of the post and related comments is done.
-                request.flash("success" , `Successfully Deleted Post and associated Comments`) ; 
+                if(request.xhr){
+                    
+                    return response.status(200).json({
+                        message : "Post Deleted Successfully!" , 
+                        data : {
+                            postId : request.params.id
+                        }
+                    }) ;
+                } 
                 return response.redirect("back") ; 
             }); 
         }
@@ -103,7 +111,6 @@ module.exports.deletePost =  async function(request , response){
    catch(error){
        // if error then making user notified via Noty.
         console.error(`Something went wrong--> ${error}`) ;
-        request.flash("error" , `Something went wrong--> ${error}`)  ;
         return response.redirect("back") ; 
    }
 }
@@ -207,10 +214,12 @@ module.exports.deleteComment = function(request , response){
 module.exports.togglelike = async function(request , response){
     const post =  await posts.findById(request.params.id) ; 
     let isLiked = false ; 
+    let wasDisLiked = false ; 
     let index = 0 ; 
     for(let dislike of post.dislikes){
         if(dislike == request.user.id){
             post.dislikes.splice(index , 1) ;
+            wasDisLiked = true ; 
             break ; 
         }
         index += 1 ; 
@@ -229,16 +238,29 @@ module.exports.togglelike = async function(request , response){
         post.likes.push(request.user._id) ; 
     }
     post.save() ; 
-
+    if(request.xhr){
+        return response.status(200).json({
+            data:{
+                likes : post.likes.length , 
+                dislikes : post.dislikes.length , 
+                wasDisLiked : wasDisLiked , 
+                isLiked : isLiked , 
+                postId : post._id 
+            } , 
+            message : "Liked Post!!!!"
+        })
+    } 
     return response.redirect("back") ; 
 }
 module.exports.toggledislike = async function(request , response){
     const post =  await posts.findById(request.params.id) ; 
     let isdisLiked = false ; 
+    let wasLiked = false ; 
     let index = 0 ; 
     for(let like of post.likes){
         if(like == request.user.id){
             post.likes.splice(index , 1) ;
+            wasLiked = true  ; 
             break ; 
         }
         index += 1 ; 
@@ -257,7 +279,19 @@ module.exports.toggledislike = async function(request , response){
         post.dislikes.push(request.user._id) ; 
     }
     post.save() ; 
-
+    console.log("##########3333" + wasLiked) ; 
+    if(request.xhr){
+        return response.status(200).json({
+            data:{
+                dislikes : post.dislikes.length , 
+                likes : post.likes.length , 
+                wasLiked : wasLiked , 
+                isdisLiked : isdisLiked , 
+                postId : post._id 
+            } , 
+            message : "Disiked Post!!!!"
+        })
+    }
     return response.redirect("back") ; 
 }
 
