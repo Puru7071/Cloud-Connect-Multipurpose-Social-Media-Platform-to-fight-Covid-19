@@ -55,6 +55,40 @@
 
         });
     }
+
+    $(".delete-button").click(function(event){
+        console.log("hello") ; 
+        event.preventDefault() ; 
+        let parent = $(event.target).parent()
+        $.ajax({
+            type : "get" ,
+            url : $(parent).prop('href'),  
+            success : function(data){
+                
+                $(`#post-${data.data.postId}`).remove() ; 
+
+                new Noty({
+                    theme: 'semanticui' , 
+                    text: "Post Deleted Successfully !!!" , 
+                    type : "success" , 
+                    layout : "topRight" , 
+                    timeout : 1500 
+                }).show() 
+            } , 
+            error : function(error){
+                console.log(error.responseText) ; 
+
+                new Noty({
+                    theme: 'semanticui' , 
+                    text: `Something went wrong !!!` , 
+                    type : "error" , 
+                    layout : "topRight" , 
+                    timeout : 1500 
+                }).show() 
+            }
+        })
+    }) ; 
+
     $(".like").click(function(event){
         console.log("hello") ; 
         event.preventDefault() ; 
@@ -168,5 +202,146 @@
         })
     }) ; 
 
+
+    $(".report-button").click(function(event){
+        console.log("hello") ; 
+        event.preventDefault() ; 
+        let parent = $(event.target).parent() ; 
+        $.ajax({
+            type : "get" , 
+            url : $(parent).prop('href'), 
+            success : function(data){
+                if(data.data.wasReported){
+                    new Noty({
+                        theme: 'semanticui' , 
+                        text: "Post Already Reported !!!" , 
+                        type : "success" , 
+                        layout : "topRight" , 
+                        timeout : 1500 
+                    }).show()
+                }else{
+                    new Noty({
+                        theme: 'semanticui' , 
+                        text: "Post Reported !!!" , 
+                        type : "success" , 
+                        layout : "topRight" , 
+                        timeout : 1500 
+                    }).show()
+                }
+                
+            } , 
+            error : function(error){
+                console.log(error.responseText) ; 
+
+                new Noty({
+                    theme: 'semanticui' , 
+                    text: `Something went wrong !!!` , 
+                    type : "error" , 
+                    layout : "topRight" , 
+                    timeout : 1500 
+                }).show() 
+            }
+        })
+    }) ; 
+
+
+    $(".comment-box").submit(function(event){
+        
+        event.preventDefault() ; 
+        let element = $(event.target) ; 
+        $.ajax({
+            type : "post" , 
+            url : $(element).prop('action'), 
+            data: $(element).serialize(),
+            success : function(data){
+
+                let date = new Date() ; 
+                $(`#comment-area-${data.data.postId}`).prepend(`
+                <div class="comment-card" id = "comment-card-${data.data.commentId}">
+                    <div class="comment-creater">
+                        <i class="fas fa-user-circle"></i> ${data.data.commentCreater}
+                    </div><br>
+                    <div class="comment">
+                        ${data.data.commentContent}
+                    </div>
+                    <div class="comment-date">
+                        ${date} 
+                    </div>
+                    <a class="delete-button-comments" href="/posts/delete-comment/${data.data.commentId}" >
+                            <i class="fas fa-trash-alt "></i>
+                    </a>
+                </div>
+                `) ; 
+
+                $(`#comments-${data.data.postId}`).html(`
+                    <i class="far fa-comment-alt fa-2x"></i>
+                    <font>${data.data.comments}</font>
+                `) ; 
+
+                $(".no-comments-heading").html("") ; 
+
+
+
+                new Noty({
+                    theme: 'semanticui' , 
+                    text: `Comment Added !!!` , 
+                    type : "success" , 
+                    layout : "topRight" , 
+                    timeout : 1500 
+                }).show() 
+            } , 
+            error : function(error){
+                console.log(error.responseText) ; 
+
+                new Noty({
+                    theme: 'semanticui' , 
+                    text: `Something went wrong !!!` , 
+                    type : "error" , 
+                    layout : "topRight" , 
+                    timeout : 1500 
+                }).show() 
+            }
+        })
+    }) ; 
+
+
+    $(".delete-button-comments").click(function(event){
+         
+        event.preventDefault() ; 
+        let parent = $(event.target).parent() ; 
+        $.ajax({
+            type : "get" , 
+            url : $(parent).prop('href'), 
+            success : function(data){
+                
+                $(`#comment-card-${data.data.commentId}`).remove(); 
+                $(`#comments-${data.data.postId}`).html(`
+                    <i class="far fa-comment-alt fa-2x"></i>
+                    <font>${data.data.comments}</font>
+                `)
+
+                new Noty({
+                    theme: 'semanticui' , 
+                    text: `Comment Removed !!!` , 
+                    type : "success" , 
+                    layout : "topRight" , 
+                    timeout : 1500 
+                }).show()
+
+
+            } , 
+            error : function(error){
+                console.log(error.responseText) ; 
+
+                new Noty({
+                    theme: 'semanticui' , 
+                    text: `Something went wrong !!!` , 
+                    type : "error" , 
+                    layout : "topRight" , 
+                    timeout : 1500 
+                }).show() 
+            }
+        })
+    }) ; 
     
 })();  

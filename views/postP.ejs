@@ -78,7 +78,7 @@
                         <%}%>
                         <font><%= post.dislikes.length%> </font>
                     </a>
-                    <div class="view-comment-section">
+                    <div class="view-comment-section" id="comments-<%=post._id%>">
                         <i class="far fa-comment-alt fa-2x"></i>
                         <font><%= post.comments.length%></font>
                     </div>
@@ -102,30 +102,35 @@
                 <h1>
                     Comments.
                 </h1>
-                <% for(let comment of post.comments){%>
-                    <div class="comment-card" >
-                        <div class="comment-creater">
-                            <i class="fas fa-user-circle"></i> <%= comment.user.name%>
-                        </div><br>
-                        <div class="comment">
-                           <%= comment.content%>
-                        </div>
-                        <div class="comment-date">
-                            <%= comment.user.createdAt%>
-                        </div>
-                        <% if(locals.user && locals.user.id == comment.user.id){%>
-                            <a class="delete-button-comments" href="/posts/delete-comment/<%= comment._id %>" >
-                                <i class="fas fa-trash-alt "></i>
-                            </a>
-                        <%}%>
-                    </div>
-                    
-                <%}%>
-                <%if(post.comments.length == 0){%>
-                    <h2>
-                        No Comments Available.
-                    </h2>
-                <%}%>
+                <div id = "comment-area-<%=post._id%>">
+                    <% for(let comment of post.comments){%>
+                        
+                        
+                                <div class="comment-card" id = "comment-card-<%= comment._id %>">
+                                    <div class="comment-creater">
+                                        <i class="fas fa-user-circle"></i> <%= comment.user.name%>
+                                    </div><br>
+                                    <div class="comment">
+                                       <%= comment.content%>
+                                    </div>
+                                    <div class="comment-date">
+                                        <%= comment.createdAt%>
+                                    </div>
+                                    <% if(locals.user && locals.user.id == comment.user.id){%>
+                                        <a class="delete-button-comments" href="/posts/delete-comment/<%= comment._id %>" >
+                                            <i class="fas fa-trash-alt "></i>
+                                        </a>
+                                    <%}%>
+                                </div>
+                                
+                    <%}%>
+                    <%if(post.comments.length == 0){%>
+                        <h2 class="no-comments-heading">
+                            No Comments Available.
+                        </h2>
+                    <%}%>
+                </div>
+               
                 
             </div>
         </div>

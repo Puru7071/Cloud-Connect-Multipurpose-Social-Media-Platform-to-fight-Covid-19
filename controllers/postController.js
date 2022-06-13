@@ -160,16 +160,29 @@ module.exports.createComment = async function(request , response){
             // then making the changes permanent not storing only in the RAM. 
             post.save() ;
 
-            console.log(`New Comment added successfully!!\n ${comment}`) ; 
+            console.log(`New Comment added successfully!!\n ${comment} ++++ ${post.comments.length}`) ; 
 
             // the giving the notification to user via Noty. 
-            request.flash("success" , "Comment added successfully") ; 
+            if(request.xhr){
+                
+                return response.status(200).json({
+                    data:{
+                        postId : post.id , 
+                        commentId : comment.id , 
+                        commentCreater : comment.user.name , 
+                        commentContent : request.body.comment , 
+                        commentDate : comment.createdAt  , 
+                        comments : post.comments.length 
+                    } , 
+                    message : "Comment Added!!!!"
+                }) ; 
+            } 
             return response.redirect("back") ; 
         }
     }
     catch(error){
         // if any error giving info via Noty. 
-        console.error(`Something went wrong--> ${error}`) ; 
+        console.error(`Something went wrong.`) ; 
         request.flash("error" , "Something went wrong") ; 
         return response.redirect("back") ; 
    }
@@ -199,7 +212,16 @@ module.exports.deleteComment = function(request , response){
                     return response.redirect("back") ; 
                 }
                 // giving notification of task done via Noty.
-                request.flash("success" , `Successfully Deleted Comment`) ; 
+                if(request.xhr){
+                    return response.status(200).json({
+                        data:{
+                            postId : post.id , 
+                            commentId : comment.id , 
+                            comments : post.comments.length - 1 
+                        } , 
+                        message : "Comment Removed!!!!"
+                    }) ; 
+                } 
                 return response.redirect("back") ; 
             }) ;
         }
@@ -301,12 +323,20 @@ module.exports.reportPost = async function(request,response){
     
     for(let report of post.reports){
         if(report == request.user.id){
-            request.flash("error" , "Post Already Reported !!") ; 
+             
+            if(request.xhr){
+                return response.status(200).json({
+                    data:{
+                        wasReported : true 
+                    } , 
+                    message : "Post Already Reported!!!!"
+                })
+            }
             return response.redirect("back") ; 
         }
     }
     post.reports.push(request.user._id) ; 
-    request.flash("success" , "Post Reported Successfully!!") ; 
+    
     post.save() ; 
 
     if(post.reports.length > 100){
@@ -320,12 +350,19 @@ module.exports.reportPost = async function(request,response){
                     console.error("Somthing went wrong: " + error) ; 
                     return response.redirect("back") ; 
                 }
-                console.log("$$$$$$$$$$$$$$$$$$$$$$$$$Report Successful$$$$$$$$$$$$$$$$$$$$$$$$$$") ; 
+                
             }) ; 
             user.save() ; 
         }
         return response.redirect("back") ; 
     }
-    
+    if(request.xhr){
+        return response.status(200).json({
+            data:{
+                wasReported : false 
+            } , 
+            message : "Post Reported!!!!"
+        })
+    }   
     return response.redirect("back") ; 
 }
