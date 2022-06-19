@@ -324,7 +324,6 @@
     }) ; 
 
 
-
     $(".comment-box").submit(function(event){
         
         event.preventDefault() ; 
@@ -336,7 +335,7 @@
             success : function(data){
 
                 let date = new Date() ; 
-                $(`#comment-area-${data.data.postId}`).prepend(`
+                let newComment = `
                 <div class="comment-card" id = "comment-card-${data.data.commentId}">
                     <div class="comment-creater">
                         <i class="fas fa-user-circle"></i> ${data.data.commentCreater}
@@ -351,7 +350,12 @@
                             <i class="fas fa-trash-alt "></i>
                     </a>
                 </div>
-                `) ; 
+                ` ; 
+
+                console.log(data.data.commentId) ; 
+
+                $(`#comment-area-${data.data.postId}`).prepend(newComment) ; 
+                delComment() ; 
 
                 $(`#comments-${data.data.postId}`).html(`
                     <i class="far fa-comment-alt fa-2x"></i>
@@ -385,45 +389,51 @@
     }) ; 
 
 
-    $(".delete-button-comments").click(function(event){
+
+    let delComment = function(){
+        $(".delete-button-comments").click(function(event){
          
-        event.preventDefault() ; 
-        let parent = $(event.target).parent() ; 
-        $.ajax({
-            type : "get" , 
-            url : $(parent).prop('href'), 
-            success : function(data){
-                
-                $(`#comment-card-${data.data.commentId}`).remove(); 
-                $(`#comments-${data.data.postId}`).html(`
-                    <i class="far fa-comment-alt fa-2x"></i>
-                    <font>${data.data.comments}</font>
-                `) ;
-
-                new Noty({
-                    theme: 'semanticui' , 
-                    text: `Comment Removed !!!` , 
-                    type : "success" , 
-                    layout : "topRight" , 
-                    timeout : 1500 
-                }).show()
-
-
-            } , 
-            error : function(error){
-                console.log(error.responseText) ; 
-
-                new Noty({
-                    theme: 'semanticui' , 
-                    text: `Something went wrong !!!` , 
-                    type : "error" , 
-                    layout : "topRight" , 
-                    timeout : 1500 
-                }).show() 
-            }
-        })
-    }) ; 
+            event.preventDefault() ; 
+            let parent = $(event.target).parent() ; 
+            $.ajax({
+                type : "get" , 
+                url : $(parent).prop('href'), 
+                success : function(data){
+                    
+                    
+                    $(`#comment-card-${data.data.commentId}`).remove(); 
+                    $(`#comments-${data.data.postId}`).html(`
+                        <i class="far fa-comment-alt fa-2x"></i>
+                        <font>${data.data.comments}</font>
+                    `)
     
+                    new Noty({
+                        theme: 'semanticui' , 
+                        text: `Comment Removed !!!` , 
+                        type : "success" , 
+                        layout : "topRight" , 
+                        timeout : 1500 
+                    }).show()
+    
+    
+                } , 
+                error : function(error){
+                    console.log(error.responseText) ; 
+    
+                    new Noty({
+                        theme: 'semanticui' , 
+                        text: `Something went wrong !!!` , 
+                        type : "error" , 
+                        layout : "topRight" , 
+                        timeout : 1500 
+                    }).show() 
+                }
+            })
+        }) ; 
+        
+    }
+
+    delComment() ; 
 
   
 
