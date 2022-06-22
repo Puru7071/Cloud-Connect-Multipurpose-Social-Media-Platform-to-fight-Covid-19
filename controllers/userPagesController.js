@@ -3,6 +3,8 @@ const users = require("../models/userInfoSchema") ;
 const post = require("../models/postSchema") ; 
 const comments = require("../models/commentSchema") ; 
 const blockedUsers = require("../models/blockedSchema") ; 
+const notifications = require("../models/notifications") ; 
+
 const { populate } = require("../models/userInfoSchema");
 
 // these are the required modules for the controller file to work.
@@ -131,16 +133,19 @@ module.exports.showHomePage = async function(request , response){
                 path : "user"
             }
         }) ; 
-        console.log(posts) ; 
+        let notis = await notifications.find({owner: request.user._id}) ; 
+
+        notis.reverse() ; 
         posts.reverse() ; // reversing the post array so as to get most recent post at the top.
         return response.render("userHomePage.ejs" , {
             layout : "userHomePage.ejs" , 
             posts : posts ,
-            isHome : true 
+            isHome : true , 
+            notis : notis 
         }) ;
     }catch(error){
         //if error then give notification via Noty.
-        console.error(`Sonething went wrong--> ${error}`) ; 
+        console.error(`Something went wrong--> ${error}`) ; 
         request.flash("error" , "Something went wrong") ;
         return response.redirect("back") ; // and going back.
     }

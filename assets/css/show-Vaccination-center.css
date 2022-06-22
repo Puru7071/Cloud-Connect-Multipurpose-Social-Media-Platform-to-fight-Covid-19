@@ -94,3 +94,10 @@
   width: 80%;
   height: 500px;
   border-radius: 50px; }
+
+.sign-out-button, .goto-home-button {
+  top: -25px;
+  right: -90px; }
+
+.goto-home-button {
+  right: 40px; }

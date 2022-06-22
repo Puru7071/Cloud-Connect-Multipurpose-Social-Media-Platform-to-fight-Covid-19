@@ -73,3 +73,10 @@ a {
   margin-top: 20px;
   margin-bottom: 20px;
   color: white; }
+
+.sign-out-button, .goto-home-button {
+  top: -25px;
+  right: -90px; }
+
+.goto-home-button {
+  right: 40px; }

@@ -3,6 +3,7 @@ const posts = require("../models/postSchema") ;
 const comments = require("../models/commentSchema") ; 
 const User = require("../models/userInfoSchema") ; 
 const blockedUsers = require("../models/blockedSchema") ; 
+const notification = require("../models/notifications") ; 
 
 // Below two are the required module for controller function to execute.
 const req = require("express/lib/request");
@@ -137,6 +138,7 @@ module.exports.createComment = async function(request , response){
     try{
         // now finding the post by the id passed on via request in the params
         let post =  await posts.findById(request.body.postID) ; 
+        
         if(post){
             // now creating the comment.
             let comment = await comments.create({
@@ -164,7 +166,25 @@ module.exports.createComment = async function(request , response){
 
             // the giving the notification to user via Noty. 
             if(request.xhr){
-                
+
+                var d = new Date() ; 
+                month = d.getMonth() + 1; 
+                day = d.getDate() ; 
+                year = d.getFullYear() ; 
+                hours = d.getHours() ; 
+                minutes = d.getMinutes() <= 9 ? '0' + d.getMinutes() : d.getMinutes(); 
+        
+                var timestamp = hours + ":" + minutes + "  " + day + "/" + month + "/" + year ; 
+
+                notification.create({
+                    owner : post.user._id , 
+                    content :`${request.user.name} has commented on your post🤔🤔.
+
+                        Named: ${post.title}
+                    ` , 
+                    timestamp : timestamp 
+                }) ; 
+
                 return response.status(200).json({
                     data:{
                         postId : post.id , 
@@ -235,6 +255,7 @@ module.exports.deleteComment = function(request , response){
 }
 module.exports.togglelike = async function(request , response){
     const post =  await posts.findById(request.params.id) ; 
+    
     let isLiked = false ; 
     let wasDisLiked = false ; 
     let index = 0 ; 
@@ -258,6 +279,25 @@ module.exports.togglelike = async function(request , response){
         post.likes.splice(index , 1) ; 
     }else{
         post.likes.push(request.user._id) ; 
+
+        var d = new Date() ; 
+        month = d.getMonth() + 1; 
+        day = d.getDate() ; 
+        year = d.getFullYear() ; 
+        hours = d.getHours() ; 
+        minutes = d.getMinutes() <= 9 ? '0' + d.getMinutes() : d.getMinutes(); 
+
+        var timestamp = hours + ":" + minutes + "  " + day + "/" + month + "/" + year ; 
+
+        
+
+        notification.create({
+            owner : post.user , 
+            content :`👍 ${request.user.name} has liked your post 😁😁.
+            
+            Named: ${post.title}` , 
+            timestamp : timestamp 
+        }) ; 
     }
     post.save() ; 
     if(request.xhr){
@@ -336,6 +376,26 @@ module.exports.reportPost = async function(request,response){
         }
     }
     post.reports.push(request.user._id) ; 
+
+    var d = new Date() ; 
+    month = d.getMonth() + 1; 
+    day = d.getDate() ; 
+    year = d.getFullYear() ; 
+    hours = d.getHours() ; 
+    minutes = d.getMinutes() <= 9 ? '0' + d.getMinutes() : d.getMinutes(); 
+
+    var timestamp = hours + ":" + minutes + "  " + day + "/" + month + "/" + year ; 
+
+    
+
+    notification.create({
+        owner : post.user , 
+        content :`Beaware while creating Post on our platform because we have strict community guidelines😤😤😤 and it seems like
+        your post Named : '${post.title}' does not follow our guidelines as users find it inappropriate. If you continue to do so your account might
+        get banned...` , 
+        timestamp : timestamp  , 
+        type : "Report"
+    }) ; 
     
     post.save() ; 
 

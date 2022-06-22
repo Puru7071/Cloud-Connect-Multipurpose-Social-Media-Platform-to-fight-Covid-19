@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css">
     <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
 
+    
+
     <link rel="stylesheet" type="text/css" href="/css/user.css"> 
     <link rel="stylesheet" type="text/css" href="/css/user-home.css"> 
     <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css"> 
@@ -46,32 +48,12 @@
         <%}%>
     </script>
 
-    <div class="header-for-user-profile">
-        <a id="Web-logo" href="/users/home-page">
-            <i class="fad fa-moon-cloud fa-4x" id="cloud-connect-logo" aria-hidden="true"></i>
-            <p id="cloud-connect-name">Cloud Connect.</p>
-        </a>
-        <p>
-            <a href="/users/home-page">
-                CloudConnect
-            </a>
-        </p>
-        <div>
-            <a href="/users/sign-out" >
-                <button class="sign-out-button">
-                    <i class="fas fa-sign-out"></i> &nbsp; Sign-Out 
-                </button>
-            </a>
-            <a href="/users/profile/<%= user._id%>" >
-                <button class="goto-home-button">
-                    <i class="fas fa-user"></i>&nbsp; Profile 
-                </button>
-            </a>
-        </div>
-    </div>
+    <%- include("header")-%>
     <%- include("postP") -%>
 
     <%- include("asideSection") -%>
+
+    <%- include("notificationBar") -%>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js"></script>

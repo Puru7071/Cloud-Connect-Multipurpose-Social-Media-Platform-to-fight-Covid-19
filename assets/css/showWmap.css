@@ -82,3 +82,10 @@
   width: 300px;
   bottom: 20px;
   right: 20px; }
+
+.sign-out-button, .goto-home-button {
+  top: -25px;
+  right: -90px; }
+
+.goto-home-button {
+  right: 40px; }

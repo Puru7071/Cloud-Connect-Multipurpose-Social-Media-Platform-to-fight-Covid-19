@@ -112,3 +112,77 @@ a {
   position: absolute;
   right: 20px;
   top: 20px; }
+
+#notification-button {
+  height: 50px;
+  width: 50px;
+  position: relative;
+  right: -100px;
+  cursor: pointer; }
+
+#notification-bar {
+  z-index: 4000000;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  border-radius: 10px;
+  width: 500px;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: none; }
+
+#notification-heading {
+  color: white;
+  position: relative;
+  left: 50px; }
+
+#close-noti-bar {
+  cursor: pointer;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background-color: transparent;
+  border: none;
+  color: white; }
+
+#noti-area {
+  width: 90%;
+  height: 80%;
+  margin: auto;
+  padding-right: 10px;
+  overflow-y: scroll; }
+  #noti-area::-webkit-scrollbar {
+    width: 1vw; }
+  #noti-area::-webkit-scrollbar-thumb {
+    background: #666666;
+    border-radius: 50vw; }
+  #noti-area::-webkit-scrollbar-button {
+    display: none; }
+  #noti-area::-webkit-scrollbar-corner {
+    background: #b3b3b3; }
+  #noti-area::-webkit-scrollbar-track {
+    background: #b3b3b3; }
+
+.notification {
+  color: white;
+  font-size: 1.5 rem;
+  font-family: monospace;
+  padding-bottom: 20px;
+  border-bottom: 5px solid white;
+  margin-bottom: 25px;
+  position: relative; }
+
+.timestamp {
+  position: absolute;
+  right: 10px; }
+
+.noti-content {
+  padding-left: 10px;
+  width: 80%; }
+
+.sign-out-button, .goto-home-button {
+  right: -25px;
+  top: 0px; }
+
+.goto-home-button {
+  right: 105px; }

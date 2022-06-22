@@ -359,4 +359,16 @@
     delComment() ; 
 
 
+    document.getElementById("notification-button").addEventListener("click" , function(event){
+        event.stopPropagation() ; 
+
+        document.getElementById("notification-bar").style.display = "block" ; 
+
+    }) ; 
+    document.getElementById("close-noti-bar").addEventListener("click" , function(event){
+        event.stopPropagation() ; 
+
+        document.getElementById("notification-bar").style.display = "none" ; 
+    }) ; 
+
 })();  
