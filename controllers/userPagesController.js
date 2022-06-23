@@ -4,6 +4,9 @@ const post = require("../models/postSchema") ;
 const comments = require("../models/commentSchema") ; 
 const blockedUsers = require("../models/blockedSchema") ; 
 const notifications = require("../models/notifications") ; 
+const OTP = require("../models/otpSchema") ; 
+
+const otpMailer = require("../mailer/OTPMailer") ; 
 
 const { populate } = require("../models/userInfoSchema");
 
@@ -11,6 +14,7 @@ const { populate } = require("../models/userInfoSchema");
 const res = require("express/lib/response");
 const path = require("path") ; 
 const fs = require("fs") ; 
+const req = require("express/lib/request");
 
 // controller function to make new user in Datebase.
 module.exports.createNewUser = function(request , response){
@@ -51,31 +55,86 @@ module.exports.createNewUser = function(request , response){
             request.flash("error" , "Email already in use.") ; 
             return response.redirect("/sign-in") ; // and going to sign-in page.
         }
+        var uid ; 
         if(!user){
             // if user is not there then we are creating the one.
-            users.create({
+            
+
+            var randomString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" ; 
+            var genOTP = (Math.floor(Math.random()*10000)) + 
+            randomString[(Math.floor(Math.random()*100) % 52)]+
+            randomString[(Math.floor(Math.random()*100) % 52)]+
+            randomString[(Math.floor(Math.random()*100) % 52)]+
+            randomString[(Math.floor(Math.random()*100) % 52)];
+
+            OTP.create({
+                OTP : genOTP, 
                 email : request.body.email , 
                 name : request.body.name , 
                 password : request.body.password , 
                 personlInfo : request.body.Bio , 
                 postBlocked : 0  , 
                 avatar : null 
-            } , function(error , newUser){
+            } , function(error , OTPUser){
                 if(error){
-                    //if error then give notification via Noty.
-                    console.error(`Error in creating new User: ${error}`) ; 
-                    request.flash("error" , "Error in creating user") ; 
-                    return response.redirect("back") ; 
+                    console.log("Something Went wrong !bnf!: " + error) ; 
+                    users.deleteOne({email : request.body.email} , function(error){
+                        if(error){
+                            console.log("Something Went Wrong"); 
+                        }
+                    }) ; 
+                    request.flash("error" , "Something went wrong") ; 
+                    response.redirect("/sign-up") ; 
                 }
-                // if user is created successful then we give notication via noty for successful account 
-                // creation. 
-                console.log(`New User Created Succesfully : ${newUser}`) ; 
-                request.flash("success" , "Account Created Successfully") ; 
-                return response.redirect("/sign-in") ; // and then go to sign-in page.
+
+                otpMailer.otpMailSender(request.body.email , genOTP) ;
+                return response.redirect("/otp-page") ; // and then go to otp page.
             }); 
         }
     }) ; 
 }  
+
+module.exports.checkOTP = async function(request , response){
+    var checkedOTP = await OTP.findOne({OTP : request.body.OTP}) ; 
+
+    if(checkedOTP){
+        users.create({
+            email : checkedOTP.email , 
+            name : checkedOTP.name , 
+            password : checkedOTP.password , 
+            personlInfo : checkedOTP.Bio , 
+            postBlocked : 0  , 
+            avatar : null 
+        } , function(error , newUser){
+            if(error){
+                //if error then give notification via Noty.
+                console.error(`Error in creating new User: ${error}`) ; 
+                request.flash("error" , "Error in creating user") ; 
+                return response.redirect("back") ; 
+            }
+            // if user is created successful then we give notication via noty for successful account 
+            // creation. 
+            console.log(`New User Created Succesfully : ${newUser}`) ;    
+        }) ; 
+        request.flash("success" , "Verification was Successful !!") ; 
+        OTP.deleteOne({OTP : request.body.OTP} , function(error){
+            if(error){
+                console.log(`Something went wrong: ${error}`) ; 
+            }
+        }) ; 
+        return response.redirect("/sign-in") ; 
+    }
+    else{
+        request.flash("error" , "OTP Entered is wrong !!") ; 
+        OTP.deleteOne({OTP : request.body.OTP} , function(error){
+            if(error){
+                console.log(`Something went wrong: ${error}`) ; 
+            }
+        }) ;
+        return response.redirect("/sign-up") ; 
+    }
+
+}
 
 // made this controller function asynchronous so one function is executed before moving to next.
 module.exports.showProfile = async function(request , response){

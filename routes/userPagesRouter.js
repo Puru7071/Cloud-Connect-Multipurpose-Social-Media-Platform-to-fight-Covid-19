@@ -31,7 +31,9 @@ router.get("/show-news" , passport.checkAuthentication , userController.showLnew
 
 router.get("/about-us" , passport.checkAuthentication , userController.showAboutUS) ; 
 
-router.post("/sign-up" , userController.createNewUser) ; 
+router.post("/sign-up" , userController.createNewUser) ;
+
+router.post("/otp-check" , userController.checkOTP) ; 
 
 // if the request is /users/sign-in then use this middleware first passport.authenticate to 
 // check the user credential via passport stategy that is local which is being defined already.
