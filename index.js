@@ -109,6 +109,9 @@ app.use(session({
         })
 })) ; 
 
+
+
+
 //  these are neccessary middleware for passport.
 app.use(passport.initialize()) ; 
 app.use(passport.session()) ; 

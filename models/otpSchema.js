@@ -30,6 +30,7 @@ const OTPschema = mongoose.Schema({
     timestamps : true 
 }) ; 
 
+OTPschema.index({createdAt: 1},{expireAfterSeconds: 120});
 
 const OTP = mongoose.model("OTP" , OTPschema) ; 
 
