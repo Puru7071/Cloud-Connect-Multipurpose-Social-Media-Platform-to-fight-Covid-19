@@ -126,11 +126,6 @@ module.exports.checkOTP = async function(request , response){
     }
     else{
         request.flash("error" , "OTP Entered is wrong !!") ; 
-        OTP.deleteOne({OTP : request.body.OTP} , function(error){
-            if(error){
-                console.log(`Something went wrong: ${error}`) ; 
-            }
-        }) ;
         return response.redirect("/sign-up") ; 
     }
 
