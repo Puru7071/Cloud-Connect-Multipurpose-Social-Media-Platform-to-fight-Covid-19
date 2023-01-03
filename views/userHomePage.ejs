@@ -27,6 +27,7 @@
 </head>
 <body>
 
+    
     <script>
         <% if(flash.success && flash.success.length > 0){%>
             new Noty({
@@ -48,13 +49,13 @@
         <%}%>
     </script>
 
-    <%- include("header")-%>
-    <%- include("postP") -%>
+    <%- include("header") %>
+    <%- include("postP") %>
 
-    <%- include("asideSection") -%>
+    <%- include("asideSection.ejs") %>
 
-    <%- include("notificationBar") -%>
-
+    <%- include("notificationBar") %>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js"></script>
 
